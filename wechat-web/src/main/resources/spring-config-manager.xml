@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"/>
+    <bean id="registerManager" class="com.wechat.manager.impl.RegisterManagerImpl"/>
+    <bean id="homeManager" class="com.wechat.manager.impl.HomeManagerImpl"/>
+    <bean id="componentManager" class="com.wechat.manager.impl.ComponentManagerImpl"/>
+    <bean id="settingManager" class="com.wechat.manager.impl.SettingManagerImpl"/>
+    <bean id="autoRespondManager" class="com.wechat.manager.impl.AutoRespondManagerImpl"/>
+    <bean id="materialManager" class="com.wechat.manager.impl.MaterialManagerImpl"/>
+    <bean id="statisticsManager" class="com.wechat.manager.impl.StatisticsManagerImpl"/>
+    <bean id="superUserManager" class="com.wechat.manager.impl.SuperUserManagerImpl"/>
+</beans>

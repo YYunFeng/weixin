@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:sqlmap-config.xml"/>
+    </bean>
+
+    <bean id="registerDao" class="com.wechat.dao.impl.RegisterDaoImpl"/>
+    <bean id="homeDao" class="com.wechat.dao.impl.HomeDaoImpl"/>
+    <bean id="componentDao" class="com.wechat.dao.impl.ComponentDaoImpl"/>
+    <bean id="settingDao" class="com.wechat.dao.impl.SettingDaoImpl"/>
+    <bean id="autoRespondDao" class="com.wechat.dao.impl.AutoRespondDaoImpl"/>
+    <bean id="materialDao" class="com.wechat.dao.impl.MaterialDaoImpl"/>
+    <bean id="statisticsDao" class="com.wechat.dao.impl.StatisticsDaoImpl"/>
+    <bean id="superUserDao" class="com.wechat.dao.impl.SuperUserDaoImpl"/>
+</beans>

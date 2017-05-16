@@ -1,0 +1,16 @@
+.list{ float:left; width:550px; font-size:13px; margin:0px; line-height:30px; max-height:500px; overflow:auto; overflow-x:hidden;}
+.list .li_title{ width:150px; float:left; padding:5px; font-weight:bold; border-bottom:1px dashed #999999;}
+.list .li_title_time{ width:60px; float:left; padding:5px; font-weight:bold; border-bottom:1px dashed #999999;}
+.list .li_title_button{ width:70px; float:right; text-align:right; padding: 5px; font-weight:bold; border-bottom:1px dashed #999999;}
+
+.list .li_content{ width:130px; float:left; padding:5px; }
+.list .li_content_time{ width:60px; float:left; padding:5px; }
+.list .li_content_button{ width:120px; float:right; padding:5px; }
+.list .loading{ float:left; text-align:center; font-size:14px; width:100%; margin-top:10px; margin-bottom:10px;}
+
+.survey_edit{ float:right; display:block; margin-right:12px; width:19px; height:18px; background:#000000; background:url(../images/edit.png);}
+.survey_edit:hover{ background:url(../images/edit_hover.png);}
+.survey_del{ float:right; display:block;width:19px; height:18px; background:url(../images/delete.png);}
+.survey_del:hover{ background:url(../images/delete_hover.png);}
+
+.msg-input{ width:353px; margin:6px 0;}

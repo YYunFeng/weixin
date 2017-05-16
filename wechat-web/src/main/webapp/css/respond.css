@@ -1,0 +1,532 @@
+/* CSS Document */
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.list_lan {
+    float: left;
+    width: 100%;
+    height: auto;
+    line-height: 30px;
+    margin: 12px 0 12px 0;
+}
+
+.list_lan span {
+    width: 90px;
+    float: left;
+    display: block;
+}
+
+.list_lan input {
+    float: left;
+    height: 26px;
+    width: 340px;
+}
+
+.list_lan select {
+    margin-top: 4px;
+}
+
+.list_lan p {
+    float: left;
+    line-height: 30px;
+    margin-left: 12px;
+    font-size: 12px;
+}
+
+.list_line {
+    float: left;
+    width: 100%;
+    height: 1px;
+    margin: 12px 0 12px 0;
+    border-bottom: dashed 1px #666666;
+}
+
+.text_title {
+    float: left;
+    font-weight: normal;
+    width: 100%;
+    font-size: 14px;
+}
+
+.text_only {
+    float: left;
+    width: 715px;
+    height: 140px;
+    padding: 6px;
+    margin: 12px 0 12px 0;
+    resize: none;
+}
+
+.edit_area {
+    float: left;
+    width: 100%;
+    height: 180px;
+    border: solid 1px #000000;
+}
+
+.summary {
+    float: right;
+    resize: none;
+    width: 631px;
+    height: 90px;
+}
+
+.replay_tap {
+    float: left;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 12px;
+    border: solid 1px #e1dfde;
+}
+
+.replay_tap ul {
+    float: left;
+}
+
+.replay_tap ul li {
+    float: left;
+    width: 90px;
+    margin-right: 0px;
+}
+
+.replay_tap ul li a {
+    line-height: 30px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: block;
+}
+
+.tap_select {
+    background: #32750b;
+    color: #FFFFFF;
+}
+
+.btnGreen {
+    margin: 12px 0 0 0;
+    border: 1px solid #3d810c;
+    box-shadow: 0 1px 1px #aaa;
+    -moz-box-shadow: 0 1px 1px #aaa;
+    -webkit-box-shadow: 0 1px 1px #aaa;
+    padding: 6px 34px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    overflow: visible;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    *zoom: 1;
+    background-color: #5ba607;
+    background-image: linear-gradient(bottom, #4d910c 3%, #69b310 97%, #69b310 100%);
+    background-image: -moz-linear-gradient(bottom, #4d910c 3%, #69b310 97%, #69b310 100%);
+    background-image: -webkit-linear-gradient(bottom, #4d910c 3%, #69b310 97%, #69b310 100%);
+    color: #fff;
+    border: 1px solid #3d810c
+}
+
+.btnGreen:hover {
+    text-decoration: none;
+    background-color: #5ba607;
+    border: 1px solid #3d810c;
+    background-image: linear-gradient(bottom, #3d810c 3%, #69b310 97%, #69b310 100%);
+    background-image: -moz-linear-gradient(bottom, #3d810c 3%, #69b310 97%, #69b310 100%);
+    background-image: -webkit-linear-gradient(bottom, #3d810c 3%, #69b310 97%, #69b310 100%);
+    color: #fff
+}
+
+.module_area {
+    float: left;
+    width: 103%;
+    margin-bottom: 12px;
+    max-height: 600px;
+    overflow: auto;
+}
+
+.module_block {
+    float: left;
+    position: relative;
+    width: 350px;
+    height: auto;
+    margin: 0px 12px 12px 0;
+}
+
+.module_sel_no {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.module_sel {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    background: url(../images/selected-bg.png);
+}
+
+.sel_icon {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 75px;
+    height: 60px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    background: url(../images/selected-icon.png) no-repeat;
+}
+
+.add_rule {
+    background-color: #F1F1F1;
+    border: 1px solid #AAAAAA;
+    border-radius: 3px 3px 3px 3px;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    overflow: visible;
+    padding: 3px 12px;
+    margin: 6px 0 3px 3px;
+    text-align: center;
+    width: 185px;
+}
+
+.nav_mod {
+    overflow: hidden;
+    width: 720px;
+}
+
+.nav_mod .dev_desc {
+    background-color: #F2F2F2;
+    border: 1px solid #D6D6D6;
+    margin-bottom: 10px;
+    margin-top: 35px;
+    padding: 10px 20px;
+}
+
+.respond_type {
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    text-indent: 12px;
+    color: #FFFFFF;
+    background:#73ae1f;
+}
+
+.button_block {
+    float: left;
+    width: 100%;
+    height: 50px;
+    line-height: 40px;
+    border-bottom: dashed 1px #999999;
+}
+
+.button_block h3 {
+    float: left;
+    color: #333;
+}
+
+.switch {
+    float: right;
+    margin-left: 6px;
+}
+
+.switch_button {
+    float: right;
+    width: auto;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.switch_button span {
+    float: left;
+    line-height: 30px;
+}
+
+.text_block1 {
+    float: left;
+    width: 368px;
+    height: 140px;
+    margin-top: 12px;
+    padding: 6px;
+    resize: none;
+}
+
+.help_check {
+    float: left;
+    width: 380px;
+    margin-top: 6px;
+}
+
+.help_check input {
+    margin: 0;
+    padding: 0;
+}
+
+.text_warn {
+    float: left;
+    width: 380px;
+    color: #999999;
+}
+
+.text_warn2 {
+    float: left;
+    width: 300px;
+    margin-left: 75px;
+    color: #999999;
+}
+
+.left_title {
+    float: left;
+    line-height: 28px;
+    width: 75px;
+}
+
+.right_input {
+    float: left;
+    width: 303px;
+    height: 28px;
+}
+
+.right_input_short {
+    float: left;
+    width: 150px;
+    height: 28px;
+}
+
+.short_check {
+    float: left;
+    margin: 6px 0 0 6px;
+}
+
+.compelt_button {
+    float: left;
+    clear: both;
+    margin-top: 24px;
+}
+
+.respond_left {
+    float: left;
+    width: 380px;
+}
+.respond_left_2 {
+    float: left;
+    width: 100%;
+}
+
+
+.preview_win {
+    position: relative;
+    float: left;
+    width: 330px;
+    margin: 12px 0 0 12px;
+    height: 550px;
+    background: url(../images/preview2.jpg) no-repeat;
+}
+
+.preview_win_2 {
+    position: relative;
+    float: left;
+    width: 330px;
+    margin: 12px 0 0 0px;
+    height: 495px;
+    background: url(../images/preview2.jpg) no-repeat;
+}
+
+.preview_win_3 {
+    position: relative;
+    float: left;
+    width: 330px;
+    margin: 12px 0 0 12px;
+    height: 550px;
+    background: url(../images/preview3.jpg) no-repeat;
+}
+
+.page_head {
+    position: absolute;
+    top: 112px;
+    left: 85px;
+    width: 190px;
+    height: 38px;
+    overflow: hidden;
+    background: none;
+    border: none;
+}
+
+.page_middle {
+    position: absolute;
+    top: 120px;
+    left: 82px;
+    width: 190px;
+    height: 190px;
+    overflow: hidden;
+    resize: none;
+    background: none;
+    border: none;
+}
+
+.page_middle_2 {
+    position: absolute;
+    top: 120px;
+    left: 85px;
+    width: 190px;
+    height: 270px;
+    overflow: hidden;
+    resize: none;
+    background: none;
+    border: none;
+}
+
+.page_bottom {
+    position: absolute;
+    top: 361px;
+    left: 85px;
+    width: 190px;
+    height: 40px;
+    overflow: hidden;
+    background: none;
+    border: none;
+}
+
+.award_block {
+    float: left;
+    width: 100%;
+    height: 45px;
+    border-bottom: dashed 1px #666666;
+}
+
+.award_block ul {
+    float: left;
+}
+
+.award_block ul li {
+    float: left;
+    margin: 12px 24px 0 0;
+}
+
+.award_setting {
+    float: left;
+    width: 100%;
+    height: 75px;
+    border-bottom: dashed 1px #ccc;
+}
+
+.award_setting ul {
+    float: left;
+    width: 100%;
+}
+
+.award_setting ul li {
+    float: left;
+    margin-top: 12px;
+    margin-right: 33px;
+}
+
+.setting_num {
+    float: left;
+    margin: 6px 0 0 6px;
+}
+
+.setting_num_txt {
+    float: left;
+    margin: 7px 0 0 6px;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color: #999999;
+}
+
+.help_1 {
+    position: absolute;
+    top: 120px;
+    left: 168px;
+    background: none;
+    border: 0;
+}
+
+.help_2 {
+    position: absolute;
+    top: 185px;
+    left: 83px;
+    width: 190px;
+    height: 240px;
+    background: none;
+    border: 0;
+    resize: none;
+}
+
+.cb-enable, .cb-disable, .cb-enable span, .cb-disable span {
+    background: url(../images/switch.gif) repeat-x;
+    display: block;
+    float: left;
+}
+
+.cb-enable span, .cb-disable span {
+    line-height: 30px;
+    display: block;
+    background-repeat: no-repeat;
+    font-weight: bold;
+}
+
+.cb-enable span {
+    background-position: left -90px;
+    padding: 0 10px;
+}
+
+.cb-disable span {
+    background-position: right -180px;
+    padding: 0 10px;
+}
+
+.cb-disable.selected {
+    background-position: 0 -30px;
+}
+
+.cb-disable.selected span {
+    background-position: right -210px;
+    color: #fff;
+}
+
+.cb-enable.selected {
+    background-position: 0 -60px;
+}
+
+.cb-enable.selected span {
+    background-position: left -150px;
+    color: #fff;
+}
+
+.switch label {
+    cursor: pointer;
+}
+
+.key_check{width:30px; height:30px; float:left; margin-left:6px; background:url(../images/loadingPass.gif) no-repeat center;}
+.key_check_y{width:30px; height:30px; float:left; margin-left:6px; background:url(../images/onCorrect.gif) no-repeat center;}
+.key_check_n{width:30px; height:30px; float:left; margin-left:6px; background:url(../images/onError.gif) no-repeat center;}
+
+.zhongjiang_left{ float:left; width:355px;}
+.zhongjiang_right{ float:left; width:355px; margin-left:12px;}
+.text_block_new{ float:left; width:355px; height:90px; resize:none;}
+
+.helpShortcuts_what{
+    font-size: 13px; color:#999; margin-left:165px; height:25px; line-height:25px;
+}
+.helpShortcuts{
+    width:700px; background:#ffffff; padding:10px; margin-left:10px; border:1px solid #73ae1f;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+.helpShortcuts p{ font-size:14px; line-height:20px; color:#73ae1f;}
+.helpShortcutsIMG{width:700px; height:324px; background:url(../images/help_yijianBTN.png)}

@@ -1,0 +1,145 @@
+@charset "utf-8";
+* {
+font-family: Arial, Helvetica, sans-serif;
+margin:0px; padding:0px; border:0px; list-style:none;
+}
+body{
+	background:#c23c21;
+	
+}
+span{
+font-size:14px;
+}
+#lottery {
+	background: url("/view/luckyRing/images/disc-bg.png") no-repeat scroll 0 0 transparent;
+	height: 225px;
+	width: 225px;
+	
+	margin:auto; padding:auto;
+	margin-top:90px;
+	top:10px; right:0px; bottom:0px; left:0px;
+	position:absolute;
+	z-index:10;
+}
+#lottery .arrow {
+	background: url("/view/luckyRing/images/arrow.png") no-repeat scroll 0 0 transparent;
+	height: 95px;
+	left: 103px;
+	position: absolute;
+	top: 45px;
+	width: 16px;
+}
+#lottery .lot-btn {
+	height: 46px;
+	left: 88px;
+	overflow: hidden;
+	position: absolute;
+	top: 90px;
+	width: 45px;
+}
+#lottery .lot-btn span {
+	cursor: pointer;
+	display: block;
+	height: 46px;
+	position: relative;
+	width: 45px;
+}
+
+#lottery .first span {
+	background: url("/view/luckyRing/images/buttons_01.png") no-repeat scroll 0 0 transparent;
+}
+
+.lotterybg{
+position:absolute; margin:auto; margin-top:0px; top:10px; right:0px; bottom:0px; left:0px;
+}
+.lotterybg_animation{
+position:absolute; margin:auto; margin-top:0px; top:10px; right:0px; bottom:0px; left:0px;
+-moz-animation: animate-stripes 6s linear infinite; /* FF3.5+ */
+-o-animation: animate-stripes 6s linear infinite; /* Opera 10.5 */
+-webkit-animation: animate-stripes 3s linear infinite; /* Saf3.1+, Chrome */
+}
+
+.imgs_animation{
+-moz-animation: animate-stripes 1s linear infinite; /* FF3.5+ */
+-o-animation: animate-stripes 1s linear infinite; /* Opera 10.5 */
+-webkit-animation: animate-stripes 1s linear infinite; /* Saf3.1+, Chrome */
+}
+@-webkit-keyframes animate-stripes {  
+0% {
+-moz-transform: rotate(0deg); /* FF3.5+ */
+-o-transform: rotate(0deg); /* Opera 10.5 */
+-webkit-transform: rotate(0deg); /* Saf3.1+, Chrome */
+} 
+100% {
+-moz-transform: rotate(360deg); /* FF3.5+ */
+-o-transform: rotate(360deg); /* Opera 10.5 */
+-webkit-transform: rotate(360deg); /* Saf3.1+, Chrome */
+}  
+} 
+
+
+.maskbg {
+margin:auto; padding:auto; top:0px; right:0px; bottom:0px; left:0px;
+margin-top:0px;
+width: 100%; height:110%;
+position:absolute; 
+background:#666;
+z-index:10000;
+background:url(/view/luckyRing/images/mask.png);
+}
+.popupboxbg{
+z-index:10001;
+	position:absolute; margin:auto; padding:auto; top:0px; right:0px; bottom:0px; left:0px;
+	margin-top:120px;
+	width: 80%;
+	height:150px;
+	background:#c23c21;
+	border:2px solid #FFF;
+	border-radius: 10px;
+}
+.popupboxbg span{
+	display:block;
+	width: 96%;
+	height: 96%;
+	margin: 2%;
+	line-height:150px;
+	text-align:center;
+	color:#ffffff;
+	font-size:16px;
+}
+.titletable{
+width:80%; height:100px; position:absolute; z-index:2; top:0px; right:0px; bottom:0px; left:0px; margin:auto;
+}
+.titletr{
+width:100%; height:100%;
+}
+.titletd{
+height:100%; width:100%; text-align:center; table-layout:fixed; word-break : break-all; word-wrap : break-word ;
+}
+.titlespan{
+color:#a91119; font-size:20px; font-weight:bold;
+text-shadow:1px 1px 1px #f8e5b2, -1px -1px -1px #f8e5b2;
+font-style: italic;
+box-shadow:2px 2px 5px #333333,box-shadow:-2px -8px 5px #333333;
+}
+		
+.jiangxiang{
+margin:0px; padding:0px;
+width:92%; margin-left:5%; color:#333333; font-size:16px; margin-top:330px; position:absolute; z-index:100;
+}
+
+.winnercontenthtml, #page, #markbg{
+-webkit-transition:all 1s ease-out;
+-moz-transition:all 1s ease-out;
+-o-transition: all 1s ease-out;
+transition: all 1s ease-out;
+}
+.winnercontenthtml{
+width: 92%; background:url(/view/luckyRing/images/bg.jpg);
+padding: 0px 4%;
+}
+.winnerfont p{
+font: bold 20px "微软雅黑", "Lucida Grande", "Lucida Sans", Helvetica, Arial, Sans;
+color: #a91119;text-transform: uppercase;
+text-shadow: 0 0 1px red;
+}

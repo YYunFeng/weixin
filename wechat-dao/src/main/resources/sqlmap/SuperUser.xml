@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SuperUser">
+    <typeAlias alias="user" type="com.wechat.domain.bean.User"/>
+    <typeAlias alias="superUserParameter" type="com.wechat.domain.parameter.SuperUserParameter"/>
+    <typeAlias alias="logMessageRes" type="com.wechat.domain.bean.response.LogMessageRes"/>
+    <typeAlias alias="statisticsLogMessParameter" type="com.wechat.domain.parameter.StatisticsLogMessParameter"/>
+    <typeAlias alias="statisUserCount" type="com.wechat.domain.bean.response.StatisUserCount"/>
+
+
+    <select id="getUserContent" resultClass="user" parameterClass="superUserParameter">
+        SELECT
+        us.id AS Id,
+        us.user_name AS userName,
+        us.business_name AS businessName,
+        us.area as area,
+        us.mail as mail,
+        us.telephone as telephone,
+        us.linkman as linkman,
+        us.introduction as introduction,
+        us.created as created,
+        usweixn.weixin_account as weixinaccount,
+        (select count(*) from TB_UPSTREAM_MESSAGE_LOG  as uplog where  uplog.weixin_id = usweixn.id
+        <isNotEmpty property="startTime">
+            and DATE_FORMAT(uplog.created, '%Y-%m-%d') BETWEEN #startTime# AND #endTime#
+        </isNotEmpty>) as upCount,
+
+        (select count(*) from TB_DOWNSTREAM_MESSAGE_LOG  as dowlog where  dowlog.weixin_id = usweixn.id
+        <isNotEmpty property="startTime">
+         and DATE_FORMAT(dowlog.created, '%Y-%m-%d' ) BETWEEN #startTime# AND #endTime#
+        </isNotEmpty>) as downCount
+        FROM
+        TB_USER as us,
+        TB_USER_WEIXIN as usweixn
+        where
+          us.superuser = 0
+        AND
+          us.id = usweixn.user_id
+        <isNotEmpty property="startTime">
+            AND DATE_FORMAT(us.created, '%Y-%m-%d') BETWEEN #startTime# AND #endTime#
+        </isNotEmpty>
+        <isNotEmpty property="keyWord">
+            AND us.user_name like '%$keyWord$%'
+        </isNotEmpty>
+        ORDER BY
+        <isEmpty property="orderby">
+           us.created
+            DESC
+        </isEmpty>
+        <isEqual property="orderby" compareValue="1">
+            upCount
+            DESC
+        </isEqual>
+        <isEqual property="orderby" compareValue="0">
+            upCount
+            ASC
+        </isEqual>
+        LIMIT
+           #limit#
+        OFFSET
+          #offset#
+
+    </select>
+    <!--统计数量-->
+    <select id="getUserContentCount" resultClass="Integer" parameterClass="superUserParameter">
+        SELECT
+        count(*)
+        FROM
+        TB_USER as us,
+        TB_USER_WEIXIN AS usweixn
+        where
+        us.superuser = 0
+        AND  us.id = usweixn.user_id
+
+        <isNotEmpty property="startTime">
+            AND DATE_FORMAT(us.created, '%Y-%m-%d') BETWEEN #startTime# AND #endTime#
+        </isNotEmpty>
+        <isNotEmpty property="keyWord">
+            AND user_name like '%$keyWord$%'
+        </isNotEmpty>
+    </select>
+
+    <select id="getCountToday" resultClass="statisUserCount">
+        select
+        sum(a.todayCount) as todayCount,
+        sum(a.allCount) as totalCount
+        from (
+        SELECT
+        count(*) as todayCount,
+        0 as allCount
+        FROM
+        TB_USER as us,
+        TB_USER_WEIXIN AS usweixn
+        WHERE
+        DATE_FORMAT(us.created, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
+        AND superuser = 0
+        AND us.id = usweixn.user_id
+        UNION
+        SELECT
+        0 as todayCount,
+        count(*) as allCount
+        FROM
+        TB_USER as us,
+        TB_USER_WEIXIN AS usweixn
+        WHERE
+        superuser = 0
+        AND us.id = usweixn.user_id
+        ) as a
+    </select>
+
+    <select id="logMessCount" resultClass="logMessageRes" parameterClass="statisticsLogMessParameter">
+        SELECT
+        sum(a.upstreamCount) AS upstreamCount,
+        sum(a.downstreamCount) AS downstreamCount,
+        a.created AS created,
+        a.Id as Id
+        FROM
+        (
+        (
+        SELECT
+        COUNT(*) AS upstreamCount,
+        0 AS downstreamCount,
+        weixin.user_id as Id,
+        DATE_FORMAT(
+        messageLog.created,
+        '%Y-%m-%d'
+        ) AS created
+        FROM
+        TB_UPSTREAM_MESSAGE_LOG AS messageLog,
+        TB_USER_WEIXIN AS weixin
+        WHERE
+        weixin.id = messageLog.weixin_id
+        AND weixin.user_id = #Id#
+        AND DATE_FORMAT(
+        messageLog.created,
+        '%Y-%m-%d'
+        ) BETWEEN #startTime#
+        AND #endTime#
+        GROUP BY
+        created
+        )
+        UNION ALL
+        (
+        SELECT
+        0 AS upstreamCount,
+        COUNT(*) AS downstreamCount,
+        weixin.user_id as Id,
+        DATE_FORMAT(
+        messageLog.created,
+        '%Y-%m-%d'
+        ) AS created
+        FROM
+        TB_DOWNSTREAM_MESSAGE_LOG AS messageLog,
+        TB_USER_WEIXIN AS weixin
+        WHERE
+        weixin.id = messageLog.weixin_id
+        AND weixin.user_id = #Id#
+        AND messageLog.is_focus = 0
+        AND DATE_FORMAT(
+        messageLog.created,
+        '%Y-%m-%d'
+        ) BETWEEN #startTime#
+        AND #endTime#
+        GROUP BY
+        created
+        )
+        ) AS a
+        GROUP BY
+        created
+    </select>
+</sqlMap>

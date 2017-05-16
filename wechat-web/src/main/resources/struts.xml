@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.objectFactory.spring.autoWire " value="type"/>
+    <constant name="struts.action.extension" value="action"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+    <constant name="struts.multipart.maxSize" value="10485760"/>
+
+    <package name="project-default" extends="struts-default">
+        <interceptors>
+            <interceptor name="LoginIntercept"
+                         class="com.wechat.intercept.LoginIntercept"/>
+            <interceptor-stack name="projectStack">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="LoginIntercept">
+                    <param name="excludeMethods">
+                        index,login,checkLogin,register,weixinaccountsetting,saveweixinaccountsetting,luckyRing,picMessage,scaratchCard,settingCompont
+                    </param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="projectStack"></default-interceptor-ref>
+
+        <global-results>
+            <result name="login">/view/redirect.jsp</result>
+            <result name="setting" type="redirect">/setting/setting.action</result>
+        </global-results>
+
+    </package>
+    <package name="weixinmanager-json-common" namespace="/" extends="json-default">
+        <result-types>
+            <result-type name="json" class="org.apache.struts2.json.JSONResult" default="true"/>
+        </result-types>
+    </package>
+
+    <include file="struts-login.xml"/>
+    <include file="struts-proxy.xml"/>
+    <include file="struts-index.xml"/>
+    <include file="struts-register.xml"/>
+    <include file="struts-home.xml"/>
+    <include file="struts-setting.xml"/>
+    <include file="struts-component.xml"/>
+    <include file="struts-autorespond.xml"/>
+    <include file="struts-upload.xml"/>
+    <include file="struts-material.xml"/>
+    <include file="struts-statistics.xml"/>
+    <include file="struts-superuser.xml"/>
+</struts>

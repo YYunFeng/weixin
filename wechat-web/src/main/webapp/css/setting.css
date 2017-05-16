@@ -1,0 +1,67 @@
+.setting_block{ float:left; margin-top:12px;}
+.min-height{ min-height:500px;}
+.setting_block td{ height:45px; font-size:15px;}
+.table_left{ width:180px;}
+.text_input{ padding-left:6px; margin-left:12px; width:210px; height:25px; border:solid 1px #69B310;}
+.setting_block textarea{ width:500px; height:130px; padding:6px;margin-left:12px; resize:none; border:solid 1px #69B310;}
+.btnGreen{ margin:12px;border:1px solid #3d810c;box-shadow:0 1px 1px #aaa;-moz-box-shadow:0 1px 1px #aaa;-webkit-box-shadow:0 1px 1px #aaa;padding:6px 34px;cursor:pointer;display:inline-block;text-align:center;overflow:visible;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;*zoom:1;background-color:#5ba607;background-image:linear-gradient(bottom,#4d910c 3%,#69b310 97%,#69b310 100%);background-image:-moz-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#69b310 100%);background-image:-webkit-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#69b310 100%);color:#fff;border:1px solid #3d810c}
+.btnGreen:hover{ text-decoration:none;background-color:#5ba607;border:1px solid #3d810c;background-image:linear-gradient(bottom,#3d810c 3%,#69b310 97%,#69b310 100%);background-image:-moz-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#69b310 100%);background-image:-webkit-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#69b310 100%);color:#fff}
+.dev_desc { margin-top: 20px; padding: 10px 20px; border: 1px solid #d6d6d6; background-color: #f2f2f2;}
+.dev_desc .dev_desc_col_l {padding-bottom: 20px;}
+.dev_desc dl dd {font-size: 16px;font-weight: 400;color: #787878;padding-bottom: 0;word-break: break-all;}
+.dev_tip {padding: 10px 0;color: #7b7b7b;}
+.dev_desc dl dd label {width: 80px;display: inline-block;}
+label {cursor: default;}
+.dev_desc dl dd strong {color: #000; display:block;}
+.dev_tip strong {font-weight: 400;}
+.helpline{
+width: 600px; height:5px; background:#73ae1f; margin-top:40px;
+}
+.helplineicon{
+	width: 43px; height:43px; background:url(../images/help_icon.png) no-repeat;
+	top:-19px; position:relative;
+	line-height:43px; text-align:center; font-size:16px;
+}
+.helplineicon_w{
+	width: 43px; height:43px; background:url(../images/help_icon.png) no-repeat bottom;
+	top:-19px; position:relative; float:left;
+	line-height:43px; text-align:center; font-size:16px;
+	color: #000;
+}
+.helplineicon_w:hover{
+	background:url(../images/help_icon.png) no-repeat;
+	color: #fff;
+}
+.helplineicon_hover{
+	width: 43px; height:43px; background:url(../images/help_icon.png) no-repeat;
+	top:-19px; position:relative; float:left;
+	line-height:43px; text-align:center; font-size:16px;
+	color: #fff;
+}
+.icon2{ left:100px; }
+.icon3{ left:200px; }
+.icon4{ left:300px; }
+.icon5{ left:400px; }
+.help_c1_img{
+	width:700px; height:164px; background:url(../images/help_deploy1.jpg) no-repeat -50px;
+}
+.help_c2_img{
+	width:700px; height:401px; background:url(../images/help_deploy2.jpg) no-repeat -50px;
+}
+.help_c3_img{
+	width:700px; height:1139px; background:url(../images/help_deploy3.jpg) no-repeat -50px;
+}
+.help_c4_img{
+	width:700px; height:312px; background:url(../images/help_deploy4.jpg) no-repeat -50px;
+}
+.help_c5_img{
+	width:700px; height:98px; background:url(../images/help_deploy5.jpg) no-repeat -50px;
+}
+.helpdeploys div div p{
+	font-size:16px; line-height:30px; color:#787878;
+}
+.helpdeploys div{
+	width:100%;
+}
+.help_btndiv{ text-align: center; }
+

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Component">
+    <typeAlias alias="componentParameter" type="com.wechat.domain.parameter.ComponentParameter"/>
+    <typeAlias alias="component" type="com.wechat.domain.bean.Component"/>
+    <typeAlias alias="bigWheelRingLuckyPrize" type="com.wechat.domain.bean.BigWheelRingLuckyPrize"/>
+    <typeAlias alias="bigWheelRingLucky" type="com.wechat.domain.bean.BigWheelRingLucky"/>
+    <typeAlias alias="scaratchCardRingLucy" type="com.wechat.domain.bean.ScaratchCardRingLucy"/>
+    <typeAlias alias="scaratchCardRingLuckyPrize"
+               type="com.wechat.domain.bean.ScaratchCardRingLuckyPrize"/>
+    <typeAlias alias="componentRes" type="com.wechat.domain.bean.response.ComponentRes"/>
+    <typeAlias alias="survey" type="com.wechat.domain.bean.Survey"/>
+    <typeAlias alias="surveyRes" type="com.wechat.domain.bean.response.SurveyRes"/>
+    <!--取得组件-->
+    <select id="getCompontent" parameterClass="componentParameter" resultClass="component">
+        SELECT
+        component.id AS Id,
+        component.title AS title,
+        component.pic AS pic,
+        component.intro AS intro,
+        component.created as created,
+        component.end_time as endTime
+        FROM
+        TB_COMPONENT AS component,
+        TB_USER_WEIXIN AS userweixin
+        <isEqual property="componentType" prepend="," compareValue="2">
+            TB_SURVEY AS survey
+        </isEqual>
+        WHERE
+        userweixin.id = component.weixin_id
+        AND userweixin.user_id =#userId#
+        AND userweixin.weixin_account =#weixinAccount#
+        <isNotNull property="componentType" prepend="AND">
+            component.component_type = #componentType#
+        </isNotNull>
+        <isEqual property="componentType" prepend="AND" compareValue="2">
+            survey.type=#surveyType#
+            AND
+            survey.component_id = component.id
+        </isEqual>
+        ORDER BY created desc
+    </select>
+
+    <!--添加组件-->
+    <insert id="createComponent" parameterClass="component">
+        insert into
+        TB_COMPONENT(weixin_id,component_type,title,pic,intro,created,end_time)values(#weixinId#,#componentType#,#title#,#pic#,#intro#,now(),#endTime#);
+        <selectKey resultClass="int" keyProperty="Id">
+            <![CDATA[SELECT LAST_INSERT_ID() AS Id ]]>
+        </selectKey>
+    </insert>
+
+    <!--添加刮刮卡信息-->
+    <insert id="createScaratchRingLucky" parameterClass="scaratchCardRingLucy">
+        insert into
+        TB_SCARATCHCARD(component_id,address,telphone,remark,lucky_count,lucky_intro,need_contact,created)values(#componentId#,#address#,#telphone#,#remark#,#luckyCount#,#luckyIntro#,#needContact#,now());
+        <selectKey resultClass="int" keyProperty="Id">
+            <![CDATA[SELECT LAST_INSERT_ID() AS Id ]]>
+        </selectKey>
+    </insert>
+    <!--添加刮刮卡奖项-->
+    <insert id="createScaratchRingLuckyPrize" parameterClass="scaratchCardRingLuckyPrize">
+        insert into
+        TB_SCARATCHCARD_PRIZE(scaratch_id,prize_name,probability,reserve_count,count,created)values(#scaratchId#,#prizeName#,#probability#,#count#,#count#,now());
+    </insert>
+
+    <!--添加大转盘信息-->
+    <insert id="createComponentRingLucky" parameterClass="bigWheelRingLucky">
+        insert into
+        TB_COMPONENT_RINGLUCKY(component_id,address,telphone,remark,lucky_count,lucky_intro,need_contact,created)values(#componentId#,#address#,#telphone#,#remark#,#luckyCount#,#luckyIntro#,#needContact#,now());
+        <selectKey resultClass="int" keyProperty="Id">
+            <![CDATA[SELECT LAST_INSERT_ID() AS Id ]]>
+        </selectKey>
+    </insert>
+
+    <!--创建大转盘奖项-->
+    <insert id="createComponentRingLuckyPrize" parameterClass="bigWheelRingLuckyPrize">
+        insert into
+        TB_COMPONENT_RINGLUCKY_PRIZE(luckyring_id,prize_name,probability,reserve_count,count,created)values(#luckyringId#,#prizeName#,#probability#,#count#,#count#,now());
+    </insert>
+
+    <!--删除组件-->
+    <delete id="deleteComponent" parameterClass="component">
+        DELETE
+        FROM
+        TB_COMPONENT
+        WHERE
+        id = #Id#
+    </delete>
+
+    <!--获的大转盘详情-->
+    <select id="getBigWheelComponent" parameterClass="int" resultClass="componentRes">
+        SELECT
+        component.id as componentId,
+        component.title as title,
+        component.pic as pic,
+        component.intro as intro,
+        component.end_time as endTime,
+        componentLucky.id as componentLuckyId,
+        componentLucky.address as address,
+        componentLucky.telphone as telphone,
+        componentLucky.remark as remark,
+        componentLucky.lucky_count as luckyCount,
+        componentLucky.lucky_intro as luckyIntro,
+        componentLucky.need_contact as needContact
+        FROM
+        TB_COMPONENT AS component,
+        TB_COMPONENT_RINGLUCKY AS componentLucky
+        WHERE
+        component.id = componentLucky.component_id
+        and
+        component.id = #Id#
+    </select>
+
+
+    <!--获的刮刮卡详情-->
+    <select id="getScaratchComponent" parameterClass="int" resultClass="componentRes">
+        SELECT
+        component.id as componentId,
+        component.title as title,
+        component.pic as pic,
+        component.intro as intro,
+        component.end_time as endTime,
+        componentLucky.id as componentLuckyId,
+        componentLucky.address as address,
+        componentLucky.telphone as telphone,
+        componentLucky.remark as remark,
+        componentLucky.lucky_count as luckyCount,
+        componentLucky.lucky_intro as luckyIntro,
+        componentLucky.need_contact as needContact
+        FROM
+        TB_COMPONENT AS component,
+        TB_SCARATCHCARD AS componentLucky
+        WHERE
+        component.id = componentLucky.component_id
+        and
+        component.id = #Id#
+    </select>
+
+    <!--刮刮卡奖项-->
+    <select id="getScaratchRingLuckyPrize" resultClass="scaratchCardRingLuckyPrize" parameterClass="int">
+        SELECT
+        id as id,
+        scaratch_id as scaratchId,
+        prize_name as prizeName,
+        probability as probability,
+        count as count,
+        reserve_count as reserveCount
+        FROM
+        TB_SCARATCHCARD_PRIZE
+        WHERE
+        scaratch_id = #scaratchId#
+    </select>
+
+
+    <!--大转盘奖项-->
+    <select id="getComponentRingLuckyPrize" resultClass="bigWheelRingLuckyPrize" parameterClass="int">
+        SELECT
+        id as id,
+        luckyring_id as luckyringId,
+        prize_name as prizeName,
+        probability as probability,
+        count as count,
+        reserve_count as reserveCount
+        FROM
+        TB_COMPONENT_RINGLUCKY_PRIZE
+        WHERE
+        luckyring_id = #luckringId#
+    </select>
+
+
+    <!--更新组件表-->
+    <update id="updateComponent" parameterClass="component">
+        UPDATE TB_COMPONENT
+        SET
+        title = #title#,
+        pic = #pic#,
+        intro = #intro#,
+        end_time = #endTime#
+        WHERE
+        id = #Id#
+    </update>
+
+    <!--更新刮刮卡信息表-->
+    <update id="updateScaratchRingLucky" parameterClass="scaratchCardRingLucy">
+        UPDATE TB_SCARATCHCARD
+        SET
+        address = #address#,
+        telphone = #telphone#,
+        remark = #remark#,
+        lucky_count = #luckyCount#,
+        lucky_intro = #luckyIntro#,
+        need_contact = #needContact#
+        WHERE
+        id = #Id#
+    </update>
+
+    <!--更新大转盘信息表-->
+    <update id="updateComponentRingLucky" parameterClass="bigWheelRingLucky">
+        UPDATE TB_COMPONENT_RINGLUCKY
+        SET
+        address = #address#,
+        telphone = #telphone#,
+        remark = #remark#,
+        lucky_count = #luckyCount#,
+        lucky_intro = #luckyIntro#,
+        need_contact = #needContact#
+        WHERE
+        id = #Id#
+    </update>
+
+    <!--更行刮刮卡奖项表-->
+    <update id="updateScaratchRingLuckyPrize" parameterClass="scaratchCardRingLuckyPrize">
+        UPDATE TB_SCARATCHCARD_PRIZE
+        SET
+        prize_name = #prizeName#,
+        probability = #probability#
+        WHERE
+        id = #Id#
+    </update>
+
+    <!--更行大转盘奖项表-->
+    <update id="updateComponentRingLuckyPrize" parameterClass="bigWheelRingLuckyPrize">
+        UPDATE TB_COMPONENT_RINGLUCKY_PRIZE
+        SET
+        prize_name = #prizeName#,
+        probability = #probability#
+        WHERE
+        id = #Id#
+    </update>
+
+
+    <!--创建问卷调查-->
+    <insert id="createSurvey" parameterClass="survey">
+        insert into
+        TB_SURVEY(weixin_id,component_id,type,probability,count,created)values(#weixinId#,#componentId#,#type#,#probability#,#count#,now());
+    </insert>
+
+    <!--获取问卷调查详情-->
+    <select id="getSurveyContent" resultClass="surveyRes" parameterClass="int">
+        SELECT
+        component.id AS componentId,
+        component.title AS componentTitle,
+        component.pic AS pic,
+        component.intro AS intro,
+        component.end_time as endTime,
+        survey.id AS surveyId,
+        survey.type AS type,
+        survey.probability AS probability,
+        survey.count AS count
+        FROM
+        TB_COMPONENT AS component,
+        TB_SURVEY AS survey
+        WHERE
+        component.id = survey.component_id
+        AND component.id = #componentId#
+    </select>
+    <!--更行问卷调查基本信息表-->
+    <update id="updateSurvey" parameterClass="survey">
+        UPDATE TB_SURVEY
+        SET
+        type = #type#,
+        probability = #probability#,
+        count = #count#
+        WHERE
+        id = #Id#
+    </update>
+</sqlMap>

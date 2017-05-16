@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <package name="callBack" namespace="/callBack" extends="weixinmanager-json-common">
+        <action name="*" method="{1}" class="com.wechat.action.proxy.CallBackAction"/>
+    </package>
+
+    <package name="luckyring" namespace="/luckyring" extends="weixinmanager-json-common">
+        <action name="*" method="{1}" class="com.wechat.action.proxy.LuckyRingAction">
+            <result name="init" type="json">
+                <param name="root">
+                    luckyRingInitRes
+                </param>
+                <param name="excludeProperties">
+                    count
+                </param>>
+            </result>
+            <result name="lucky" type="json">
+                <param name="root">
+                    luckyRingLuckyRes
+                </param>
+            </result>
+        </action>
+    </package>
+
+    <package name="scaratchcard" namespace="/scaratchcard" extends="weixinmanager-json-common">
+        <action name="*" method="{1}" class="com.wechat.action.proxy.ScaratchCardAction">
+            <result name="init" type="json">
+                <param name="root">
+                    scaratchCardInitRes
+                </param>
+                <param name="excludeProperties">
+                    count
+                </param>>
+            </result>
+            <result name="lucky" type="json">
+                <param name="root">
+                    scaratchCardLuckyRes
+                </param>
+            </result>
+        </action>
+    </package>
+
+
+    <package name="html5" namespace="/html5" extends="project-default">
+        <action name="*" method="{1}" class="com.wechat.action.proxy.Html5">
+            <result name="luckyring">/view/luckyRing/index.jsp</result>
+            <result name="picmessage">/view/picMessage/index.jsp</result>
+            <result name="scaratchCard">/view/scaratchCard/index.jsp</result>
+        </action>
+    </package>
+</struts>
+

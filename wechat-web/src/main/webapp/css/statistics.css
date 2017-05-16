@@ -1,0 +1,168 @@
+.list_title{
+width:100%; height:116px;
+margin-top: 10px;
+/*
+border:#f4f4f4 solid 1px;
+*/
+}
+.list_title_l{
+	float:left;
+	width: 14px; height:100%; background:url(../images/statistics_l.png) no-repeat;
+}
+.list_title_c{
+	float:left;
+	width: 90%; height:100%; background:url(../images/statistics_c1.png) repeat-x;
+}
+.list_title_r{
+	float:left;
+	width: 14px; height:100%; background:url(../images/statistics_r.png) no-repeat;
+}
+.list_title_c_l{
+	margin-top:10px;
+	width: 30%; height:70px; float:left;
+}
+.list_title_c_l div{
+	height:70px; line-height:35px; font-size:20px; overflow:hidden; color:#777777; font-weight:bold;
+}
+.list_title_c_l div.date{
+	font-size:14px; background:url(../images/statistics_time.png) no-repeat left center; padding-left:20px;  font-weight:normal;
+}
+.list_title_c_l div.date1{
+	font-size:20px; background:url(../images/statistics_time.png) no-repeat left 10px; padding-left:20px;  font-weight:normal;
+}
+.list_title_c_r{
+	margin-top:10px;
+	width: 50%; height:70px; float:right;
+}
+.list_title_c_r div{
+	height:50px; line-height:50px; font-size:25px; overflow:hidden; text-align:center; color:#35b0b1;
+}
+.list_title_c_r div.s1, .list_title_c_r div.s1 a{
+	font-size:14px; height:70px; line-height:70px; text-align:center; color:#777a80;
+}
+.list_title_c_r div.s1 a:hover{
+	color:#099;
+}
+.list_title_c_r div.s2{
+	font-size:14px; height:20px; line-height:20px; text-align:center; color:#777a80;
+}
+.list_title_c_r div.c2{
+	color:#D86E3b; font-weight:bold;
+}
+.list_title_c_r div.c3{
+	color:#f5bc00; font-weight:bold;
+}
+.ltcr1{ width:10%;}
+.ltcr2{ width:18%;}
+.ltcr3{ width:30%;}
+
+.list_detail{
+	width: 90%; height:auto; margin-left:14px;
+}
+.list_subcon_banner, .list_subcon_btn{
+	width: 100%; height:41px; margin-left:0%;
+}
+.list_subcon{
+	width:89px; height:130px; float:left; margin-left:2px; margin-top:2px;
+	border: 0px solid #e7e7e7;
+}
+.list_subcon:hover{
+border-top: 3px solid #3d3e3f; height:127px;
+/*
+background: -webkit-gradient(linear,0% -1%,0% 9%,from(#5a5a5a),to(rgba(255,255,255,0.5))),-webkit-gradient(linear,center top,center bottom,color-stop(40%,rgba(122,122,122,0.6)),color-stop(100%,rgba(255,255,255,0.5)));
+background: -moz-linear-gradient(top,rgba(90,90,90,1) 0,rgba(255,255,255,0.5) 10%),-moz-linear-gradient(top,rgba(122,122,122,0.7) 40%,rgba(255,255,255,0.5) 100%);
+background: -o-linear-gradient(top,rgba(90,90,90,1) 0,rgba(255,255,255,0.5) 10%),-o-linear-gradient(top,rgba(122,122,122,0.7) 40%,rgba(255,255,255,0.5) 100%);
+background: -ms-linear-gradient(top,rgba(90,90,90,1) 0,rgba(255,255,255,0.5) 3%),-ms-linear-gradient(top,rgba(122,122,122,0.7) 40%,rgba(255,255,255,0.5) 100%);
+background: linear-gradient(top,rgba(90,90,90,1) 0,rgba(255,255,255,0.5) 10%),linear-gradient(top,rgba(122,122,122,0.7) 40%,rgba(255,255,255,0.5) 100%);
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr="#d6d6d6", endColorstr="#fff")";
+filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0,startColorstr="#d6d6d6",endColorstr="#ffffff");
+position: relative;
+*/
+}
+.list_subcon_banner div{
+	width: 20%; height:40px; line-height:40px; float:left; text-align:center; overflow: hidden;
+}
+.list_subcon_banner div.date{
+	width: 38%; height:40px; line-height:40px; float:left; text-align:left; overflow: hidden; padding-left:2%;
+}
+.list_subcon div{
+	width: 100%; height:25px; line-height:25px; text-align:center; overflow: hidden;
+}
+.list_subcon div.date{
+	width: 83%; padding-left:17%; height:24px; line-height:24px; text-align:left; overflow: hidden; font-weight:normal; font-size:14px; color:#777777;
+	background: url("../images/statistics_time.png") no-repeat scroll left center transparent;
+}
+.list_subcon div.border_b{
+width:82px; text-align:right; padding-right:5px; overflow:hidden;
+background:#35B0B1; color:#ffffff; font-size:16px;
+-webkit-border-top-left-radius: 8px;
+-webkit-border-top-right-radius: 8px;
+-moz-border-radius-topleft: 8px;
+-moz-border-radius-topright: 8px;
+border-top-left-radius: 8px;
+border-top-right-radius: 8px;
+}
+.list_subcon div.border_b_ye{
+border-top:1px solid #fff;
+width:82px; text-align:right; padding-right:5px; overflow:hidden;
+background:#f5bc00; color:#ffffff;font-size:14px;
+}
+.list_subcon div.border_b_or{
+border-top:1px solid #fff;
+width:82px; text-align:right; padding-right:5px; overflow:hidden;
+background:#D86E3b; color:#ffffff;font-size:14px;
+-webkit-border-bottom-right-radius: 8px;
+-webkit-border-bottom-left-radius: 8px;
+-moz-border-radius-bottomright: 8px;
+-moz-border-radius-bottomleft: 8px;
+border-bottom-right-radius: 8px;
+border-bottom-left-radius: 8px;
+}
+.list_subcon_btn div.hidden_btn{
+	width:100%; height:40px; text-align:center; line-height:40px;
+	font-size:16px; color:#777777;
+	border-bottom:2px solid #777777;
+    float: left;
+}
+.list_subcon_btn div.hidden_btn:hover{
+	color:#35B0B1;
+	border-bottom:2px solid #35B0B1;
+}
+
+.border_b div.list_subcon_iconX{
+-moz-border-radius: 8px;
+-webkit-border-radius: 8px;
+border-radius: 8px;
+width: 80%; margin-left:10%; height:40px; color:#fff;
+}
+.iconc1{ background:#35B0B1; }
+.iconc2{ background:#D86E3b; }
+.iconc3{ background:#f5bc00; }
+
+
+.lateral-navbar .current a {
+    background: -moz-linear-gradient(center top , #5A5A5A 0px, rgba(255, 255, 255, 0.5) 10%) repeat scroll 0 0%, -moz-linear-gradient(center top , rgba(122, 122, 122, 0.7) 40%, rgba(255, 255, 255, 0.5) 100%) repeat scroll 0 0 transparent;
+    position: relative;
+}
+/*
+-moz-border-radius: 8px;
+-webkit-border-radius: 8px;
+border-radius: 8px;
+*/
+.list_titlesub{
+width:98%; height:50px; line-height:25px;
+padding-left:1%; padding-right:1%;
+color:#000;
+border-bottom:#CCC dashed 1px;
+}
+.list_subcon_wj{
+    width:200px; height:80px; float:left; margin-left:2px; margin-top:2px; padding:5px; color:#35B0B1;
+    border: 1px solid #e7e7e7;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    background:#ffffff;
+}
+.list_subcon_wj:hover{
+    background:#35B0B1; color:#ffffff; text-decoration:underline;
+}

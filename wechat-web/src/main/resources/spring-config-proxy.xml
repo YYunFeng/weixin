@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+
+    <bean id="proxyDao" class="com.wechat.dao.impl.proxy.ProxyDaoImpl"/>
+
+
+    <bean id="proxyManager" class="com.wechat.manager.impl.proxy.ProxyManagerImpl"/>
+
+
+    <bean id="upstreamRouteService" class="com.wechat.service.impl.proxy.UpstreamRouteServiceImpl"/>
+    <bean id="textMessageService" class="com.wechat.service.impl.proxy.TextMessageServiceImpl"/>
+    <bean id="componentRouteService" class="com.wechat.service.impl.proxy.ComponentRouteServiceImpl"/>
+    <bean id="luckyRingService" class="com.wechat.service.impl.proxy.LuckyRingServiceImpl">
+        <property name="luckyRingUrl" value="http://weixin.360info.com.cn/html5/luckyRing.action"/>
+    </bean>
+    <bean id="scaratchCardService" class="com.wechat.service.impl.proxy.ScaratchCardServiceImpl">
+        <property name="scaratchCardUrl" value="http://weixin.360info.com.cn/html5/scaratchCard.action"/>
+    </bean>
+    <bean id="eventMessageService" class="com.wechat.service.impl.proxy.EventMessageServiceImpl"/>
+    <bean id="focusLuckyService" class="com.wechat.service.impl.proxy.FocusLuckyServiceImpl"/>
+    <bean id="picMessageRouteService" class="com.wechat.service.impl.proxy.PicMessageRouteServiceImpl">
+        <property name="linkUrl" value="http://weixin.360info.com.cn/html5/picMessage.action"/>
+    </bean>
+    <bean id="surveyService" class="com.wechat.service.impl.proxy.SurveyServiceImpl">
+        <property name="surverUrl" value="http://www.360info.com.cn/360info/weixin/survey.php"/>
+    </bean>
+    <bean id="luckyLogService" class="com.wechat.service.impl.proxy.LuckyLogServiceImpl"/>
+</beans>

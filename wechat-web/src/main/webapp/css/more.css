@@ -1,0 +1,23 @@
+body{line-height:1.6;font-family:"微软雅黑",Helvetica,"黑体",Arial,Tahoma;min-width:960px;background-color: #F3F3F3;font-size:14px;margin:0}
+.show{ display:block;}
+.hide{ display:none;}
+a img{border:0}
+.dib{display:inline-block; margin:6px 0 6px 0;}
+.dib img{ height:70px;}
+.wrapper{position:relative;width:960px;margin:0 auto; overflow:hidden;}
+.input-shadow{box-shadow:inset 0 1px 3px rgba(170,170,170,0.8);-moz-box-shadow:inset 0 1px 3px rgba(170,170,170,0.8);-webkit-box-shadow:inset 0 1px 3px rgba(170,170,170,0.8)}
+#header{border-top:5px solid #67ad03;position:relative;background-color:#f3f3f3;z-index:1;box-shadow:0 3px 5px rgba(0,0,0,0.5);-moz-box-shadow:0 3px 5px rgba(0,0,0,0.5);-webkit-box-shadow:0 3px 5px rgba(0,0,0,0.5);box-shadow:0 3px 5px rgba(0,0,0,0.5) #000;-moz-box-shadow:0 3px 5px rgba(0,0,0,0.5) #000;-webkit-box-shadow:0 3px 5px rgba(0,0,0,0.5) #000}
+.wrapper img{vertical-align:middle}
+.hd_login_info{position:absolute;right:-3px;top:38px; color:#3F65B5;}
+.hd_login_info a{ margin-left:3px; margin-right:3px; color:#3F65B5; text-decoration:none;}
+
+.left_tab{ float:left; position:relative; width:140px; background:#FFFFFF; border:1px solid #73ae1f; margin:36px 0 0 0; font-size:15px; padding:0; list-style:none;}
+
+.left_tab li{ height:35px; line-height:35px; color:#73ae1f; border-bottom:dashed 1px #89ae53; padding-left:12px; cursor:pointer;}
+.select_1{ position:absolute;left:0px; top:0px; width:5px; height:35px; background:url(../images/boult.gif) left center no-repeat;}
+.select_2{ position:absolute;left:0px; top:36px; width:5px; height:35px; background:url(../images/boult.gif) left center no-repeat;}
+.select_3{ position:absolute;left:0px; top:72px; width:5px; height:35px; background:url(../images/boult.gif) left center no-repeat;}
+.select_4{ position:absolute;left:0px; top:109px; width:5px; height:35px; background:url(../images/boult.gif) left center no-repeat;}
+.right_content{ float:left; width:792px; min-height:540px; margin:36px 0 24px 12px; padding:0 0px 0 12px; border-left:1px solid #73ae1f; line-height:28px;}
+.about{ font-size:16px;}
+.help{ font-size:15px;}

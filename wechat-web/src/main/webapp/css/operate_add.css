@@ -1,0 +1,97 @@
+.container .containerBox .content {
+border: 0;
+float: none;
+margin: 0;
+padding: 0;
+width: auto;
+}
+
+.oh {
+overflow: hidden;
+}
+.msg-edit {
+padding: 0 20px 30px;
+}
+
+.container .containerBox .content {
+    border-left: 1px solid #D3D3D3;
+    float: right;
+    margin-left: -2px;
+    padding: 20px;
+    width: 727px;
+}
+.z {
+}
+.oh {
+overflow: hidden;
+}
+.msg-preview {
+width: 350px;
+margin-top: 30px;
+}
+.left, .l {
+float: left;
+}
+.rel {
+position: relative;
+}
+user agent stylesheetdiv {
+display: block;
+}
+.msg-editer {
+background-color: #f8f8f8;
+border: 1px solid #b8b8b8;
+border-radius: 5px;
+box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+moz-border-radius: 5px;
+moz-box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+padding: 14px 22px 20px 20px;
+webkit-border-radius: 5px;
+webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+}
+.msg-editer label {
+cursor: default;
+padding-bottom: 4px;
+padding-top: 10px;
+}
+.msg-input-new {
+	float:left; width: 100px; margin-right:10px;
+}
+.pagehtml{
+width:100%; height:150px;
+}
+.pagehtml_rect {
+	width:60px; height:60px; line-height:30px; float:left; 
+	background:#fff; border:#73ae1f solid 1px; 
+	color: #73ae1f; text-align:center;
+	margin:6px;
+}
+.pagehtml_rect:hover{
+	background:#7fbf23; color:#fff; text-decoration:underline;
+}
+.p_new_btn_hover{
+	background:#73ae1f; color:#fff;
+}
+
+.msg-input, .cover-area, .msg-txta {
+    background-color: #FFFFFF;
+    border: 1px solid #D3D3D3;
+    color: #666666;
+    max-width: 480px;
+    padding: 2px 8px;
+    width: 250px;
+}
+.border-dotted{
+	border:1px dotted #b8b8b8;
+	color:#b8b8b8;
+}
+/*
+.border-dotted:hover{
+	background:#b8b8b8; color:#fff; text-decoration:underline;
+}*/
+.hide{
+	display:none;
+}
+.show{
+	display:block;
+}

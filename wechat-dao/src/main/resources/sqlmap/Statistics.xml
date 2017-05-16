@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Statistics">
+    <typeAlias alias="statisticsRes" type="com.wechat.domain.bean.StatisticsRes"/>
+    <typeAlias alias="statisticsViewRes" type="com.wechat.domain.bean.StatisticsViewRes"/>
+    <typeAlias alias="statisticsParameter" type="com.wechat.domain.parameter.StatisticsParameter"/>
+    <typeAlias alias="surveyAnswer" type="com.wechat.domain.bean.SurveyAnswer"/>
+    <typeAlias alias="surveyTopic" type="com.wechat.domain.bean.SurveyTopic"/>
+
+    <!--按大转盘统计中奖信息-->
+    <select id="statisticsBigWheelComponent" parameterClass="Integer" resultClass="statisticsRes">
+        SELECT
+        count(*) AS count,
+        component.title AS title,
+        componetRingLuckyLog.prize_id as prizeId,
+        component.id AS componentId,
+        (
+        SELECT
+        count(*)
+        FROM
+        TB_COMPONENT_VISIT_LOG AS visitLog
+        WHERE
+        component.id = visitLog.component_id
+        ) AS visitView
+        FROM
+        TB_COMPONENT_RINGLUCKY_LOG AS componetRingLuckyLog,
+        TB_COMPONENT_RINGLUCKY AS componentRingLucky,
+        TB_COMPONENT AS component
+        WHERE
+        componentRingLucky.id = componetRingLuckyLog.luckyring_id
+        AND componentRingLucky.component_id = component.id
+        AND component.weixin_id = #weixinId#
+        GROUP BY
+        componentId,
+        prizeId
+    </select>
+    <!--按日期查看大转盘的中奖信息-->
+    <select id="statisticsBigWheelComponentContent" parameterClass="statisticsParameter" resultClass="statisticsRes">
+        SELECT
+        count(*) AS count,
+        component.id AS componentId,
+        componetRingLuckyLog.prize_id as prizeId,
+        DATE_FORMAT(
+        componetRingLuckyLog.created,
+        '%Y-%m-%d'
+        ) AS DrawTime
+        FROM
+        TB_COMPONENT_RINGLUCKY_LOG AS componetRingLuckyLog,
+        TB_COMPONENT_RINGLUCKY AS componentRingLucky,
+        TB_COMPONENT AS component
+        WHERE
+        componentRingLucky.id = componetRingLuckyLog.luckyring_id
+        AND componentRingLucky.component_id = component.id
+        AND component.weixin_id = #weixinId#
+        AND component.id = #componentId#
+        GROUP BY
+        DrawTime,
+        prizeId
+    </select>
+    <!--按时间去统计访问量-->
+    <select id="statisticsViewCount" resultClass="statisticsViewRes" parameterClass="Integer">
+        SELECT
+        count(*) AS count,
+        DATE_FORMAT(created, '%Y-%m-%d') AS DrawTime,
+        component_id as componentId
+        FROM
+        TB_COMPONENT_VISIT_LOG AS visitLog
+        WHERE
+        visitLog.component_id = #componentId#
+        GROUP BY
+        DrawTime
+    </select>
+    <!--按刮刮卡统计中奖信息-->
+    <select id="statisticsSacaratchCard" parameterClass="Integer" resultClass="statisticsRes">
+        SELECT
+        count(*) AS count,
+        component.title AS title,
+        componetRingLuckyLog.prize_id as prizeId,
+        component.id AS componentId,
+        (
+        SELECT
+        count(*)
+        FROM
+        TB_COMPONENT_VISIT_LOG AS visitLog
+        WHERE
+        component.id = visitLog.component_id
+        ) AS visitView
+        FROM
+        TB_SCARATCHCARD_LOG AS componetRingLuckyLog,
+        TB_SCARATCHCARD AS componentRingLucky,
+        TB_COMPONENT AS component
+        WHERE
+        componentRingLucky.id = componetRingLuckyLog.luckyring_id
+        AND componentRingLucky.component_id = component.id
+        AND component.weixin_id = #weixinId#
+        GROUP BY
+        componentId,
+        prizeId
+    </select>
+
+
+    <!--按日期查看刮刮卡的中奖信息-->
+    <select id="statisticsSacaratchCardContent" parameterClass="statisticsParameter" resultClass="statisticsRes">
+        SELECT
+        count(*) AS count,
+        component.id AS componentId,
+        componetRingLuckyLog.prize_id as prizeId,
+        DATE_FORMAT(
+        componetRingLuckyLog.created,
+        '%Y-%m-%d'
+        ) AS DrawTime
+        FROM
+        TB_SCARATCHCARD_LOG AS componetRingLuckyLog,
+        TB_SCARATCHCARD AS componentRingLucky,
+        TB_COMPONENT AS component
+        WHERE
+        componentRingLucky.id = componetRingLuckyLog.luckyring_id
+        AND componentRingLucky.component_id = component.id
+        AND component.weixin_id = #weixinId#
+        AND component.id = #componentId#
+        GROUP BY
+        DrawTime,
+        prizeId
+    </select>
+
+    <!--被关注时候统计-->
+    <select id="statisticsAttention" parameterClass="Integer" resultClass="statisticsRes">
+        SELECT
+        COUNT(*) as count,
+        lucky as lucky,
+        DATE_FORMAT(created, '%Y-%m') AS attentionMonth
+        FROM
+        TB_FOCUS_LOG
+        WHERE
+        weixin_id = #weixinId#
+        GROUP BY
+        attentionMonth,
+        lucky
+    </select>
+    <!--被关注时候统计 按天统计-->
+    <select id="statisticsAttentionContent" resultClass="statisticsRes" parameterClass="statisticsParameter">
+        SELECT
+        COUNT(*) AS count,
+        lucky AS lucky,
+        DATE_FORMAT(created, '%Y-%m-%d') AS DrawTime
+        FROM
+        TB_FOCUS_LOG
+        WHERE
+        weixin_id = #weixinId#
+        AND
+        DATE_FORMAT(created, '%Y-%m') = #attentionMonth#
+        GROUP BY
+        DrawTime,
+        lucky
+    </select>
+    <!--统计问卷调查-->
+    <select id="statisticsSurvey" parameterClass="statisticsParameter" resultClass="statisticsRes">
+        SELECT
+        count(*) AS count,
+        component.title AS title,
+        surveyLog.prize AS prize,
+        component.id AS componentId,
+        survey.id as surveyId,
+        (
+        SELECT
+        count(*)
+        FROM
+        TB_COMPONENT_VISIT_LOG AS visitLog
+        WHERE
+        component.id = visitLog.component_id
+        ) AS visitView
+        FROM
+        TB_SURVEY_LOG AS surveyLog,
+        TB_SURVEY AS survey,
+        TB_COMPONENT AS component
+        WHERE
+        survey.id = surveyLog.survey_id
+        AND survey.component_id = component.id
+        AND component.weixin_id = #weixinId#
+        AND survey.type= #type#
+        GROUP BY
+        componentId,
+        prize
+    </select>
+    <select id="statisticsSurveyContent" resultClass="statisticsRes" parameterClass="statisticsParameter">
+        SELECT
+        count(*) AS count,
+        component.title AS title,
+        surveyLog.prize AS prize,
+        component.id AS componentId,
+        DATE_FORMAT(
+        surveyLog.createtime,
+        '%Y-%m-%d'
+        ) AS DrawTime
+        FROM
+        TB_SURVEY_LOG AS surveyLog,
+        TB_SURVEY AS survey,
+        TB_COMPONENT AS component
+        WHERE
+        survey.id = surveyLog.survey_id
+        AND survey.component_id = component.id
+        AND component.weixin_id = #weixinId#
+        AND survey.type = #type#
+        AND component.id = #componentId#
+        GROUP BY
+        DrawTime,
+        prize
+    </select>
+    <!--获得问卷调查的题目 按ID查看-->
+    <select id="getSurveyTopic" parameterClass="Integer" resultClass="surveyTopic">
+        SELECT
+        id as Id,
+        survey_id as surveyId,
+        title as title,
+        sel1 as sel1,
+        sel2 as sel2,
+        sel3 as sel3,
+        sel4 as sel4,
+        sel5 as sel5
+        FROM
+        TB_SURVEY_TOPIC
+        WHERE
+        id = #Id#
+    </select>
+
+    <!--获得问卷调查的题目 按ID查看-->
+    <select id="getSurveyTopicList" parameterClass="Integer" resultClass="surveyTopic">
+        SELECT
+        id as Id,
+        survey_id as surveyId,
+        title as title
+        FROM
+        TB_SURVEY_TOPIC
+        WHERE
+        survey_id = #surveyId#
+    </select>
+    <!--统计答案-->
+    <select id="statisticsAnswer" parameterClass="Integer" resultClass="surveyAnswer">
+        SELECT
+        answer,
+        id,
+        survey_id
+        FROM
+        TB_SURVEY_LOG  as surveyLog
+        WHERE
+        surveyLog.survey_id = #Integer#
+    </select>
+</sqlMap>

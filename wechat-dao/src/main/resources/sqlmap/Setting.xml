@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Setting">
+    <typeAlias alias="user" type="com.wechat.domain.bean.User"/>
+    <typeAlias alias="userWeixin" type="com.wechat.domain.bean.UserWeiXin"/>
+    <typeAlias alias="textResources" type="com.wechat.domain.bean.TextResources"/>
+    <typeAlias alias="focusLucky" type="com.wechat.domain.bean.FoucsLucky"/>
+    <!--更新用户信息-->
+    <update id="updateUser" parameterClass="user">
+        update TB_USER
+        set
+        business_name=#bussinessName#,
+        area =#area#,
+        telephone=#telephone#,
+        linkman=#linkMan#,
+        introduction=#introduction#
+        where
+        id=#Id#
+    </update>
+    <!--创建关联微信账号-->
+    <insert id="createWeixinUser" parameterClass="userWeixin">
+        insert into TB_USER_WEIXIN
+        (user_id,weixin_account,interface_token,focus_lucky,created)values(#userId#,#weixinAccount#,#interfaceToken#,#focusLucky#,now())
+        <selectKey resultClass="int" keyProperty="Id">
+            <![CDATA[SELECT LAST_INSERT_ID() AS Id ]]>
+        </selectKey>
+    </insert>
+    <select id="getPersonMess" parameterClass="user" resultClass="user">
+        SELECT
+        user_name AS userName,
+        business_name AS bussinessName,
+        mail AS mail,
+        telephone AS telephone,
+        linkman AS linkMan,
+        introduction AS introduction
+        FROM
+        TB_USER
+        WHERE
+        id = #Id#
+    </select>
+    <!--接口信息配置-->
+    <select id="interfaceMess" parameterClass="userWeixin" resultClass="userWeixin">
+        select
+        id as Id,
+        user_id as useId,
+        interface_token as interfaceToken
+        FROM
+        TB_USER_WEIXIN
+        WHERE
+        user_id =#userId#
+        and
+        weixin_account=#weixinAccount#
+    </select>
+    <!--创建文本信息表-->
+    <insert id="createTextResource" parameterClass="textResources">
+        insert into TB_TEXT_RESOURCES
+        (weixin_id,type,message,add_header,add_footer,add_help,created)values(#weixinId#,#type#,#message#,#addHeader#,#addFooter#,#addHelp#,now())
+        <selectKey resultClass="int" keyProperty="Id">
+            <![CDATA[SELECT LAST_INSERT_ID() AS Id ]]>
+        </selectKey>
+    </insert>
+    <!--创建关注有奖信息-->
+    <insert id="createdFoucsLucky" parameterClass="focusLucky">
+        insert into TB_FOUCSLUCKY
+        (weixin_id,absolute_lucky,lucky_number,lucky_probability,address,telphone,remark,lucky_message,not_lucky_message,add_header,add_footer,add_help,need_contact,created)
+        values
+        (#weixinId#,#absoluteLucky#,#luckyNumber#,#luckyProbability#,#address#,#telphone#,#remark#,#luckyMessage#,#notLuckyMessage#,#addHeader#,#addFooter#,#addHelp#,#needContact#,now())
+    </insert>
+    <!--修改密码-->
+    <update id="modifyPass" parameterClass="user">
+        update TB_USER
+        set
+        password=#password#
+        where
+        id=#Id#
+    </update>
+</sqlMap>

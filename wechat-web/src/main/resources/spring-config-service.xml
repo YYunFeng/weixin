@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <bean id="registerService" class="com.wechat.service.impl.RegisterServiceImpl"/>
+    <bean id="homeService" class="com.wechat.service.impl.HomeServiceImpl"/>
+    <bean id="componentService" class="com.wechat.service.impl.ComponentServiceImpl"/>
+    <bean id="settingService" class="com.wechat.service.impl.SettingServiceImpl"/>
+    <bean id="autoRespondService" class="com.wechat.service.impl.AutoRespondServiceImpl"/>
+    <bean id="materialService" class="com.wechat.service.impl.MaterialServiceImpl"/>
+    <bean id="statisticsService" class="com.wechat.service.impl.StatisticsServiceImpl"/>
+    <bean id="superUserService" class="com.wechat.service.impl.SuperUserServiceImpl"/>
+</beans>

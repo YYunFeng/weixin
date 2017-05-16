@@ -1,0 +1,51 @@
+svg:not(:root), symbol, image, marker, pattern, foreignObject {
+overflow: hidden;
+}
+rect[Attributes Style] {
+fill: #ffffff;
+stroke-width: 0.0000010000000000000004px;
+}
+Style Attribute {
+font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+font-size: 16px;
+color: #3E576F;
+}
+g[Attributes Style] {
+clip-path: url(http://mp.weixin.qq.com/cgi-bin/indexpage?t=wxm-index&token=916984087&lang=zh_CN#highcharts-1);
+}
+path[Attributes Style] {
+fill: none;
+stroke-linejoin: bevel;
+visibility: visible;
+stroke-opacity: 0.0000010000000000000004;
+stroke: #c0c0c0;
+stroke-width: 22px;
+}
+.container .boxIndex .mainPanel {
+padding: 20px 20px 20px 20px;
+width: 660px;
+border-right: 1px solid #d3d3d3;
+float: left;
+}
+.container .boxIndex .todoList {
+margin-top: 20px;
+}
+.wxCharts {
+width: 660px;
+height: 300px;
+background: #FFF;
+margin: 20px auto 0 auto;
+}
+.index-tip-wrapper {
+padding-top: 20px;
+}
+.container .boxIndex .extendPanel {
+float: right;
+width: 216px;
+padding: 20px;
+}
+.container .boxIndex .extendPanel .extInfo h3 {
+font-size: 14px;
+border-bottom: 1px solid #d3d3d3;
+padding-bottom: 2px;
+}

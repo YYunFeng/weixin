@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Register">
+
+    <typeAlias alias="user" type="com.wechat.domain.bean.User"/>
+    <!--注册用户-->
+    <insert id="createUser" parameterClass="user">
+        INSERT INTO TB_USER (
+        user_name,
+        password,
+        business_name,
+        area,
+        mail,
+        telephone,
+        linkman,
+        introduction,
+        superuser,
+        user_type,
+        created
+        )
+        VALUES
+        (
+        #userName#,
+        #password#,
+        #bussinessName#,
+        #area#,
+        #mail#,
+        #telephone#,
+        #linkMan#,
+        #introduction#,
+        0,
+        #userType#,
+        NOW()
+        );
+        <selectKey resultClass="int" keyProperty="Id">
+            <![CDATA[SELECT LAST_INSERT_ID() AS Id ]]>
+        </selectKey>
+    </insert>
+    <!--验证用户是否存在,用户登录-->
+    <select id="authUser" parameterClass="user" resultClass="user">
+       select
+           id as Id,
+           user_name as userName,
+           password as password,
+           superuser as superUser,
+           user_type as userType
+        from
+           TB_USER
+        where
+           user_name = #userName#
+        <isNotNull property="password" prepend="and">
+           password =#password#
+        </isNotNull>
+    </select>
+</sqlMap>

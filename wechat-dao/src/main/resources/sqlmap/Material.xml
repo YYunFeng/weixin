@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Material">
+    <typeAlias alias="material" type="com.wechat.domain.bean.Material"/>
+    <typeAlias alias="picMessage" type="com.wechat.domain.bean.PicMessage"/>
+    <typeAlias alias="materialListRes" type="com.wechat.domain.bean.response.MaterialListRes"/>
+    <typeAlias alias="materialListParameter" type="com.wechat.domain.parameter.MaterialListParameter"/>
+    <!--获取素材信息-->
+    <select id="getMaterial" resultClass="material" parameterClass="material">
+        SELECT
+        id as id,
+        weixin_id as weixinId,
+        type as type
+        FROM
+        TB_MATERIAL
+        WHERE
+        Id = #Id#
+    </select>
+    <!--获取图文信息-->
+    <select id="getPicMessage" parameterClass="int" resultClass="picMessage">
+        SELECT
+        id as Id,
+        material_id as materialId,
+        title as title,
+        pic_url as picUrl,
+        abstract as abstractContent,
+        message as message,
+        link_url as linkUrl,
+        seq as seq
+        FROM
+        TB_PIC_MESSAGE
+        where
+        material_id = #materialId#
+    </select>
+    <!--获取素材列表-->
+    <select id="getMaterialList" parameterClass="materialListParameter" resultClass="materialListRes">
+        SELECT
+        material.id as Id,
+        picmessage.title as title,
+        picmessage.pic_url as picUrl,
+        picmessage.abstract as abstractContent,
+        (SELECT count(Id) FROM TB_PIC_MESSAGE WHERE material_id = material.id) as manyImageTextCount,
+        picmessage.message as message
+        FROM
+        TB_MATERIAL AS material,
+        TB_PIC_MESSAGE AS picmessage
+        WHERE
+        material.id = picmessage.material_id
+        <isNotNull property="type" prepend="AND">
+            material.type = #type#
+        </isNotNull>
+        AND
+        material.weixin_id =#weixinId#
+        AND
+        picmessage.seq = 1
+    </select>
+    <!--创建素材信息-->
+    <insert id="createMaterial" parameterClass="material">
+        INSERT INTO TB_MATERIAL (weixin_id,type,created)VALUES(#weixinId#,#type#,NOW());
+        <selectKey resultClass="int" keyProperty="Id">
+            <![CDATA[SELECT LAST_INSERT_ID() AS Id ]]>
+        </selectKey>
+    </insert>
+    <!--创建图文信息-->
+    <insert id="createPicMessage" parameterClass="picMessage">
+        INSERT INTO TB_PIC_MESSAGE (
+        material_id,
+        title,
+        pic_url,
+        abstract,
+        message,
+        link_url,
+        seq,
+        created,
+        modified
+        )
+        VALUES
+        (#materialId#,#title#,#picUrl#,#abstractContent#,#message#,#linkUrl#,#seq#,NOW(),NOW())
+    </insert>
+    <!--删除素材-->
+    <delete id="deleteMaterial" parameterClass="int">
+        DELETE
+        FROM
+        TB_MATERIAL
+        WHERE
+        id = #Id#
+    </delete>
+    <!--获得多图文的条数-->
+    <select id="getManyImageTextCount" parameterClass="int" resultClass="int">
+        SELECT
+        count(*)
+        FROM
+        TB_PIC_MESSAGE
+        WHERE
+        material_id = #materialId#
+    </select>
+    <!--更新图文信息-->
+    <update id="updatePicMessage" parameterClass="picMessage">
+        UPDATE TB_PIC_MESSAGE
+        SET
+        title = #title#,
+        pic_url = #picUrl#,
+        abstract = #abstractContent#,
+        message = #message#,
+        link_url = #linkUrl#,
+        seq = #seq#,
+        modified = now()
+        WHERE
+        id = #Id#
+    </update>
+    <!--删除文本信息-->
+    <delete id="deletePicMessage" parameterClass="int">
+        DELETE
+        FROM
+        TB_PIC_MESSAGE
+        WHERE
+         material_id= #materialId#
+    </delete>
+</sqlMap>

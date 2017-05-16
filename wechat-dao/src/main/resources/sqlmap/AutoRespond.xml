@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AutoRespond">
+
+    <typeAlias alias="userWeiXin" type="com.wechat.domain.bean.UserWeiXin"/>
+    <typeAlias alias="keyWordLink" type="com.wechat.domain.bean.KeyWordLink"/>
+    <typeAlias alias="autoRespondRes" type="com.wechat.domain.bean.response.AutoRespondRes"/>
+    <typeAlias alias="textResources" type="com.wechat.domain.bean.TextResources"/>
+    <typeAlias alias="foucsLucky" type="com.wechat.domain.bean.FoucsLucky"/>
+    <!--获取自动回复规则-->
+    <select id="getAutoRespond" parameterClass="userWeiXin" resultClass="keyWordLink">
+        SELECT
+        id AS Id,
+        keyword as keyword,
+        rule_name as ruleName,
+        link_type as linkType,
+        message as message,
+        material_id as materialId,
+        component_id as componentId
+        FROM
+        TB_KEYWORD_LINK
+        WHERE
+        weixin_id = #Id#
+        ORDER BY
+        created DESC
+    </select>
+    <select id="getAutoRespondById" parameterClass="keyWordLink" resultClass="autoRespondRes">
+        SELECT
+        keywordlink.id AS Id,
+        keywordlink.keyword AS keyword,
+        keywordlink.rule_name AS ruleName,
+        keywordlink.link_type AS linkType,
+        keywordlink.message AS message,
+        keywordlink.material_id AS materialId,
+        component.id AS componentId,
+        component.component_type AS componentType,
+        component.intro AS componentIntro,
+        component.created AS componentCreated,
+        component.pic AS componentPic,
+        component.title AS componentTitle,
+        picMessage.title AS materialtitle,
+        picMessage.pic_url AS materialPic,
+        picMessage.abstract AS materialAbstract,
+        picMessage.created AS materialCreated,
+        textResource.message AS textResourceMessage,
+        textResource.Id as textResourceId
+        FROM
+        TB_KEYWORD_LINK AS keywordlink
+        LEFT JOIN TB_COMPONENT AS component ON keywordlink.component_id = component.id
+        LEFT JOIN TB_PIC_MESSAGE as picMessage ON keywordlink.material_id = picMessage.material_id AND
+        picMessage.seq = 1
+        LEFT JOIN TB_TEXT_RESOURCES AS textResource ON keywordlink.text_resource_id = textResource.id
+        WHERE
+        keywordlink.id = #Id#
+    </select>
+    <insert id="createAutoRespond" parameterClass="keyWordLink">
+        insert into
+        TB_KEYWORD_LINK(keyword,rule_name,weixin_id,link_type,message,material_id,component_id,text_resource_id,created)values(#keyword#,#ruleName#,#weixinId#,#linkType#,#message#,#materialId#,#componentId#,#textResourceId#,now());
+        <selectKey resultClass="int" keyProperty="Id">
+            <![CDATA[SELECT LAST_INSERT_ID() AS Id ]]>
+        </selectKey>
+    </insert>
+    <update id="updateAutoRespond" parameterClass="keyWordLink">
+        update TB_KEYWORD_LINK
+        set
+        keyword = #keyword#,
+        rule_name = #ruleName#,
+        link_type = #linkType#,
+        material_id = #materialId#,
+        message = #message#,
+        component_id = #componentId#
+        where
+        id = #Id#
+    </update>
+    <delete id="deleteRule" parameterClass="keyWordLink">
+        DELETE
+        FROM
+        TB_KEYWORD_LINK
+        WHERE
+        id = #Id#
+    </delete>
+    <!--获取文本资源-->
+    <select id="getTextResource" parameterClass="textResources" resultClass="textResources">
+        SELECT
+        id AS Id,
+        weixin_id as weixinId,
+        type as type,
+        message as message,
+        add_header as addHeader,
+        add_footer as addFooter,
+        add_help as addHelp
+        FROM
+        TB_TEXT_RESOURCES
+        WHERE
+        weixin_id = #weixinId#
+        AND type = #type#
+    </select>
+    <!--获取关注有奖信息-->
+    <select id="getFoucsLucky" parameterClass="int" resultClass="foucsLucky">
+        SELECT
+        id AS Id,
+        weixin_id AS weixinId,
+        absolute_lucky AS absoluteLucky,
+        lucky_number AS luckyNumber,
+        lucky_probability AS luckyProbability,
+        address AS address,
+        telphone AS telphone,
+        remark AS remark,
+        lucky_message AS luckyMessage,
+        not_lucky_message AS notLuckyMessage,
+        add_header AS addHeader,
+        add_footer AS addFooter,
+        add_help AS addHelp,
+        need_contact AS needContact
+        FROM
+        TB_FOUCSLUCKY
+        WHERE
+        weixin_id = #weixinId#
+    </select>
+    <!--更新用户关注有奖状态-->
+    <update id="updateUserWeiXin" parameterClass="userWeiXin">
+        UPDATE
+        TB_USER_WEIXIN
+        SET
+        <isEqual prepend="" property="focusLucky" compareValue="true">
+            open_focus_lucky_time = NOW(),
+        </isEqual>
+        focus_lucky = #focusLucky#
+        WHERE
+        id = #Id#
+    </update>
+    <!--更新文本资源信息-->
+    <update id="updateTextResources" parameterClass="textResources">
+        UPDATE
+        TB_TEXT_RESOURCES
+        SET
+        message = #message#,
+        add_header = #addHeader#,
+        add_footer = #addFooter#,
+        add_help = #addHelp#
+        where
+        id=#id#
+    </update>
+    <!--更新关注有奖信息-->
+    <update id="updateFoucsLucky" parameterClass="focusLucky">
+        UPDATE
+        TB_FOUCSLUCKY
+        SET
+        absolute_lucky = #absoluteLucky#,
+        lucky_number = #luckyNumber#,
+        lucky_probability = #luckyProbability#,
+        address = #address#,
+        telphone = #telphone#,
+        remark = #remark#,
+        lucky_message = #luckyMessage#,
+        not_lucky_message = #notLuckyMessage#,
+        add_header = #addHeader#,
+        add_footer = #addFooter#,
+        add_help = #addHelp#,
+        need_contact = #needContact#,
+        created = now()
+        where
+        id = #Id#
+    </update>
+    <!--验证关键字是否重复-->
+    <select id="autoRule" parameterClass="keyWordLink" resultClass="keyWordLink">
+        select
+        id as Id,
+        rule_name as ruleName,
+        keyword as keyword
+        from
+        TB_KEYWORD_LINK
+        where
+        keyword = #keyword#
+        and
+        weixin_id = #weixinId#
+    </select>
+    <!--将关键字导出成帮助-->
+    <select id="exportHelp" resultClass="KeyWordLink" parameterClass="Integer">
+        SELECT
+        rule_name AS ruleName,
+        keyword AS keyword
+        FROM
+        TB_KEYWORD_LINK
+        WHERE
+        weixin_id = #Id#
+    </select>
+</sqlMap>

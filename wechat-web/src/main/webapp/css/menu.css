@@ -1,0 +1,25 @@
+/* CSS Document */
+body{margin:0;padding:0;background:#eaeaea;overflow-y:visible;overflow-x:hidden;word-wrap:break-word;word-break:break-all}
+body,p,td,th,input,select,button,dd,dl,dt,ul,ol,li,textarea{font-family:"Microsoft YaHei",Helvetica,Verdana,Arial,Tahoma;line-height:1.5;font-size:14px;color:#222}
+body{word-wrap:break-word;word-break:break-word}
+p,dd,dl,dt,ul,ol,li,h1,h2,h3,h4,h5,h6{margin:0;padding:0}
+img{border:0;text-decoration:none}
+li{list-style-type:none}
+a{color:#4c7e05}
+a:visited,a:link{text-decoration:none}
+a:hover,a:active{text-decoration:underline}
+.left,.l{float:left}
+.right,.r{float:right}
+.clr{clear:both}
+.header .logoArea{height:80px;width:960px;margin:0 auto}
+.header .logoArea{}
+.header .logoArea .accountOp{margin-top:50px;color:#4d5d2c;font-size:12px;text-decoration:none;margin-left:5px}
+.header .logoArea .accountOp a{color:#4d5d2c;font-size:12px;text-decoration:none;margin-left:5px}
+.header .navigator{height:36px;background-color:#5ba607;background-image:linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#4d910c 3%,#69b310 97%,#fff 100%)}
+.header .navigator ul{width:960px;margin:0 auto}
+.header .navigator ul li{width:130px;float:left}
+.header .navigator ul a,.header .navigator ul:link,.header .navigator ul:visited{font-size:14px;line-height:20px;color:#fff;padding-top:8px;padding-bottom:8px;display:block;text-align:center;text-decoration:none;font-weight:bold}
+.header .navigator ul a:hover{background-color:#69b310;background-image:linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#3d810c 3%,#69b310 97%,#fff 100%)}
+.header .navigator ul .selected{border-right:1px solid #69b310}
+.header .navigator ul .selected a,.header .navigator ul .selected:link,.header .navigator ul .selected:visited{background-color:#3c6f04 ll;background-image:linear-gradient(bottom,#2d710c 3%,#599300 97%,#fff 100%);background-image:-moz-linear-gradient(bottom,#2d710c 3%,#599300 97%,#fff 100%);background-image:-webkit-linear-gradient(bottom,#2d710c 3%,#599300 97%,#fff 100%);border-left:1px solid #2d710c;border-right:1px solid #2d710c}
+.logo  img{ float:left;height: 68px; margin: 6px 0 6px 0;}

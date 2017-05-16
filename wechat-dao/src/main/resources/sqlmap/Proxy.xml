@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Proxy">
+    <typeAlias alias="KeywordLinktParameter"
+               type="com.wechat.domain.parameter.proxy.KeywordLinkParameter"/>
+    <typeAlias alias="KeywordLinkProxy" type="com.wechat.domain.bean.proxy.KeywordLink"/>
+
+    <typeAlias alias="ComponentParameterProxy"
+               type="com.wechat.domain.parameter.proxy.ComponentParameter"/>
+    <typeAlias alias="ComponentProxy" type="com.wechat.domain.bean.proxy.Component"/>
+
+
+    <select id="findComponent" parameterClass="ComponentParameterProxy" resultClass="ComponentProxy">
+        SELECT
+        id as id,
+        weixin_id as weixinId,
+        component_type as componentType,
+        title as title,
+        pic as pic,
+        intro as intro
+        FROM
+        TB_COMPONENT
+        WHERE
+        id = #id#
+    </select>
+
+    <!--根据组件id查询大转盘基本信息-->
+    <typeAlias alias="ComponentRingLucky"
+               type="com.wechat.domain.bean.proxy.ComponentRingLucky"/>
+    <select id="findComponentRingLucky" parameterClass="Integer" resultClass="ComponentRingLucky">
+        SELECT
+        b.title as componentTitle,
+        a.id as id,
+        a.component_id as componentId,
+        a.address as address,
+        a.telphone as telphone,
+        a.remark as remark,
+        a.lucky_count as luckyCount,
+        a.lucky_intro as luckyIntro,
+        a.need_contact as needContact,
+        a.created as created
+        FROM
+        TB_COMPONENT_RINGLUCKY a,TB_COMPONENT b
+        WHERE
+        a.component_id=#componentId#
+        and a.component_id = b.id
+    </select>
+
+    <!--根据大转盘id获取奖项信息-->
+    <typeAlias alias="ComponentRingLuckyPrize"
+               type="com.wechat.domain.bean.proxy.ComponentRingLuckyPrize"/>
+    <select id="findComponentRingLuckyPrize" parameterClass="Integer" resultClass="ComponentRingLuckyPrize">
+        SELECT
+        id as id,
+        luckyring_id as luckyringId,
+        prize_name as prizeName,
+        probability as probability,
+        count as count
+        FROM
+        TB_COMPONENT_RINGLUCKY_PRIZE
+        WHERE
+        luckyring_id=#luckyringId#
+    </select>
+
+    <!--根据大转盘id获取剩余奖品数大于0的奖项信息-->
+    <select id="findComponentRingLuckyPrizeDaYu0" parameterClass="Integer" resultClass="ComponentRingLuckyPrize">
+        SELECT
+        id as id,
+        luckyring_id as luckyringId,
+        prize_name as prizeName,
+        probability as probability,
+        count as count,
+        reserve_count as reserveCount
+        FROM
+        TB_COMPONENT_RINGLUCKY_PRIZE
+        WHERE
+        luckyring_id=#luckyringId#
+        and reserve_count >0
+    </select>
+
+    <!--更新大转盘奖项剩余奖品数量-->
+    <update id="updateLuckyRingPrizeCount" parameterClass="Integer">
+        update TB_COMPONENT_RINGLUCKY_PRIZE SET reserve_count=reserve_count-1 where id=#id#
+    </update>
+
+    <!--记录大转盘抽奖日志-->
+    <typeAlias alias="ComponentRingLuckyLogParameter"
+               type="com.wechat.domain.parameter.proxy.ComponentRingLuckyLogParameter"/>
+    <insert id="insertRingLuckyLog" parameterClass="ComponentRingLuckyLogParameter">
+        insert into
+        TB_COMPONENT_RINGLUCKY_LOG
+        (wx_openid,luckyring_id,prize_id,created)
+        VALUES
+        (#weixinOpenId#,#luckyringId#,#prizeId#,now())
+    </insert>
+
+    <!--查询大转盘用户剩余抽奖次数-->
+    <select id="findRingLuckyUserCount" parameterClass="ComponentRingLuckyLogParameter" resultClass="Integer">
+        select count(id) from
+        TB_COMPONENT_RINGLUCKY_LOG
+        where
+        luckyring_id=#luckyringId#
+        and
+        wx_openid = #weixinOpenId#
+    </select>
+
+    <!--刮刮卡抽奖-->
+
+    <!--根据组件id查询刮刮卡基本信息-->
+    <typeAlias alias="ScaratchCard"
+               type="com.wechat.domain.bean.proxy.ScaratchCard"/>
+    <select id="findScaratchCard" parameterClass="Integer" resultClass="ScaratchCard">
+        SELECT
+        b.title as componentTitle,
+        a.id as id,
+        a.component_id as componentId,
+        a.address as address,
+        a.telphone as telphone,
+        a.remark as remark,
+        a.lucky_count as luckyCount,
+        a.lucky_intro as luckyIntro,
+        a.need_contact as needContact,
+        a.created as created
+        FROM
+        TB_SCARATCHCARD a,TB_COMPONENT b
+        WHERE
+        a.component_id=#componentId#
+        and a.component_id= b.id
+    </select>
+
+    <!--根据刮刮卡id获取奖项信息-->
+    <typeAlias alias="ScaratchCardPrize"
+               type="com.wechat.domain.bean.proxy.ScaratchCardPrize"/>
+
+    <select id="findScaratchCardPrize" parameterClass="Integer" resultClass="ScaratchCardPrize">
+        SELECT
+        id as id,
+        scaratch_id as scaratchId,
+        prize_name as prizeName,
+        probability as probability,
+        count as count
+        FROM
+        TB_SCARATCHCARD_PRIZE
+        WHERE
+        scaratch_id=#scaratchId#
+    </select>
+
+    <!--根据刮刮卡id获取剩余奖品数大于0的奖项信息-->
+    <select id="findScaratchCardPrizeDaYu0" parameterClass="Integer" resultClass="ScaratchCardPrize">
+        SELECT
+        id as id,
+        scaratch_id as scaratchId,
+        prize_name as prizeName,
+        probability as probability,
+        count as count,
+        reserve_count as reserveCount
+        FROM
+        TB_SCARATCHCARD_PRIZE
+        WHERE
+        scaratch_id=#scaratchId#
+        and reserve_count >0
+    </select>
+
+    <!--更新刮刮卡奖项剩余奖品数量-->
+    <update id="updateScaratchCardPrizeCount" parameterClass="Integer">
+        update TB_SCARATCHCARD_PRIZE SET reserve_count=reserve_count-1 where id=#id#
+    </update>
+
+    <!--记录刮刮卡抽奖日志-->
+    <typeAlias alias="ScaratchCardLogParameter"
+               type="com.wechat.domain.parameter.proxy.ScaratchCardLogParameter"/>
+    <insert id="insertScaratchCardLog" parameterClass="ScaratchCardLogParameter">
+        insert into
+        TB_SCARATCHCARD_LOG
+        (wx_openid,luckyring_id,prize_id,created)
+        VALUES
+        (#weixinOpenId#,#scaratchCardId#,#prizeId#,now())
+    </insert>
+
+    <!--查询刮刮卡用户剩余抽奖次数-->
+    <select id="findScaratchCardUserCount" parameterClass="ScaratchCardLogParameter" resultClass="Integer">
+        select count(id) from
+        TB_SCARATCHCARD_LOG
+        where
+        luckyring_id=#scaratchCardId#
+        and
+        wx_openid = #weixinOpenId#
+    </select>
+    <!--刮刮卡抽奖结束-->
+
+    <select id="findKeywordLink" parameterClass="KeywordLinktParameter" resultClass="KeywordLinkProxy">
+        SELECT
+        id as id,
+        weixin_id as weixinId,
+        keyword as keyword,
+        link_type as linkType,
+        message as message,
+        material_id as materialId,
+        component_id as componentId
+        FROM
+        TB_KEYWORD_LINK
+        WHERE
+        weixin_id=#weixinId#
+        AND
+        keyword = #keyword#
+    </select>
+
+
+    <!--根据微信账号id获取该用户是否开通关注有奖活动-->
+    <!--<select id="findFocusLuckyStatusByWeixinId" parameterClass="Integer" resultClass="Boolean">-->
+    <!--select focus_lucky from TB_USER_WEIXIN-->
+    <!--where-->
+    <!--focus_lucky = #weixinId#-->
+    <!--</select>-->
+
+
+    <!--根据id获取微信账号信息-->
+
+    <typeAlias alias="UserWeixinProxy"
+               type="com.wechat.domain.bean.proxy.UserWeixin"/>
+
+    <select id="findUserWeixinById" parameterClass="Integer" resultClass="UserWeixinProxy">
+        select
+        id AS id,user_id AS userId,weixin_account AS weixinAccount,
+        interface_token AS interfaceToken,open_focus_lucky_time AS openFocusLuckyTime,
+        focus_lucky AS focusLucky,created AS created
+        FROM
+        TB_USER_WEIXIN
+        WHERE
+        id = #weixinId#
+    </select>
+
+    <typeAlias alias="TextResourcesProxy"
+               type="com.wechat.domain.bean.proxy.TextResources"/>
+
+    <!--根据微信账号id获取该用户所有文本资源-->
+
+    <select id="findTextResourcesByWeixinId" parameterClass="Integer" resultClass="TextResourcesProxy">
+
+        select
+        id AS id,
+        weixin_id AS weixinId,
+        type AS type,
+        message AS message,
+        add_header AS addHeader,
+        add_footer AS addFooter,
+        add_help AS addHelp,
+        created AS created
+        from TB_TEXT_RESOURCES
+        where
+        weixin_id = #weixinId#
+    </select>
+
+    <!--根据微信账号id获取该用户的关注有奖信息-->
+    <typeAlias alias="FocusLuckyProxy"
+               type="com.wechat.domain.bean.proxy.FocusLucky"/>
+
+    <select id="findFocusLuckyByWeixinId" parameterClass="Integer" resultClass="FocusLuckyProxy">
+        select
+        id AS id,weixin_id AS weixinId,absolute_lucky AS absoluteLucky,
+        lucky_number AS luckyNumber,lucky_probability AS luckyProbability,
+        address AS address,telphone AS telphone,remark AS remark,
+        lucky_message AS luckyMessage,not_lucky_message AS notLuckyMessage,
+        add_header as addHeader,add_footer AS addFooter,
+        add_help AS addHelp,need_contact AS needContact,
+        created AS created
+        from TB_FOUCSLUCKY
+        where
+        weixin_id = #weixinId#
+    </select>
+
+    <!--插入关注日志-->
+    <typeAlias alias="FocusLog"
+               type="com.wechat.domain.bean.proxy.FocusLog"/>
+
+    <insert id="insertFocusLog" parameterClass="FocusLog">
+        insert into TB_FOCUS_LOG
+        (wx_openid,weixin_id,focus_message,created,lucky)
+        VALUES
+        (#wxOpenId#,#weixinId#,#focusMessage#,now(),#lucky#)
+    </insert>
+
+    <!--根据微信账号id和开启关注有奖开关的时间来获取关注数-->
+    <select id="findFoucsCountByWeixinIdAndTime" parameterClass="FocusLog" resultClass="Integer">
+        select count(id)+1 from TB_FOCUS_LOG
+        where
+        weixin_id=#weixinId#
+        and created >= #created#
+    </select>
+
+    <!--根据素材id查询图文信息-->
+    <typeAlias alias="PicMessageProxy"
+               type="com.wechat.domain.bean.proxy.PicMessage"/>
+    <select id="findPicMessageByMaterialId" parameterClass="Integer" resultClass="PicMessageProxy">
+        select a.type AS materialType,b.id AS picMessageId,b.title AS title,b.pic_url as picUrl,b.abstract as
+        abstract1,b.message as message,b.link_url as linkUrl,b.seq as seq,b.created as created,b.modified as modified
+        from TB_MATERIAL a,TB_PIC_MESSAGE b where a.id = #id# and a.id=b.material_id ORDER BY
+        seq
+    </select>
+
+    <!--根据图文id获取图文信息-->
+    <select id="findPicMessageById" parameterClass="Integer" resultClass="PicMessageProxy">
+        select title as title,pic_url as picUrl,abstract as abstract,message as message,link_url as linkUrl,seq as
+        seq,created as created,modified as modified from TB_PIC_MESSAGE where id = #id#
+    </select>
+
+    <!--插入组件访问日志-->
+    <typeAlias alias="ComponentVisitLog"
+               type="com.wechat.domain.bean.proxy.ComponentVisitLog"/>
+    <insert id="insertComponentVisitLog" parameterClass="ComponentVisitLog">
+        insert into TB_COMPONENT_VISIT_LOG
+        (component_id,wx_openid,created)
+        VALUES
+        (#componentId#,#wxOpenid#,now())
+    </insert>
+
+    <!--插入上下行信息日志-->
+    <typeAlias alias="UpstreamMessageLog"
+               type="com.wechat.domain.bean.proxy.UpstreamMessageLog"/>
+    <typeAlias alias="DownStreamMessageLog"
+               type="com.wechat.domain.bean.proxy.DownstreamMessageLog"/>
+
+    <insert id="insertUpstreamMessageLog" parameterClass="UpstreamMessageLog">
+        insert into TB_UPSTREAM_MESSAGE_LOG
+        (weixin_id,wx_openid,msg_type,msg_id,text,pic_url,location_x,location_y,scale,label,created)
+        VALUES
+        (#weixinId#,#wxOpenId#,#msgType#,#msgId#,#text#,#picUrl#,#locationX#,#locationY#,#scale#,#label#,now())
+    </insert>
+
+    <insert id="insertDownstreamMessageLog" parameterClass="DownStreamMessageLog">
+        insert into TB_DOWNSTREAM_MESSAGE_LOG
+        (weixin_id,wx_openid,msg_type,xml,is_focus,created)
+        VALUES
+        (#weixinId#,#wxOpenId#,#msgType#,#xml#,#isFocus#,now())
+    </insert>
+
+
+    <!--查询大转盘和刮刮卡的中奖纪录-->
+    <typeAlias alias="LuckyLog"
+               type="com.wechat.domain.bean.proxy.LuckyLog"/>
+    <select id="findLuckyRingScaratchCardLog" parameterClass="String" resultClass="LuckyLog">
+        SELECT
+        component.title as componentTitle,
+        prize.prize_name as prizeName,
+        log.created as created
+        FROM
+        TB_COMPONENT component,
+        TB_SCARATCHCARD scaratch,
+        TB_SCARATCHCARD_PRIZE prize,
+        TB_SCARATCHCARD_LOG log
+        WHERE
+        log.wx_openid = #wxOpenId#
+        AND log.luckyring_id = scaratch.id
+        AND log.prize_id = prize.id
+        AND prize.scaratch_id = scaratch.id
+        AND scaratch.component_id = component.id
+
+        UNION
+
+        SELECT
+        component.title as componentTitle,
+        prize.prize_name as prizeName,
+        log.created as created
+        FROM
+        TB_COMPONENT component,
+        TB_COMPONENT_RINGLUCKY ringlucky,
+        TB_COMPONENT_RINGLUCKY_PRIZE prize,
+        TB_COMPONENT_RINGLUCKY_LOG log
+        WHERE
+        log.wx_openid = #wxOpenId#
+        AND log.luckyring_id = ringlucky.id
+        AND log.prize_id = prize.id
+        AND prize.luckyring_id = ringlucky.id
+        AND ringlucky.component_id = component.id
+        ORDER BY
+        created DESC
+    </select>
+
+    <!--查询有奖问答中奖纪录-->
+    <select id="findSurveyLuckyLog" parameterClass="String" resultClass="LuckyLog">
+        SELECT
+        component.title AS componentTitle,
+        log.createtime AS created
+        FROM
+        TB_COMPONENT component,
+        TB_SURVEY survey,
+        TB_SURVEY_LOG log
+        WHERE
+        log.openuid = #wxOpenId#
+        AND log.survey_id = survey.id
+        AND survey.component_id = component.id
+        AND log.prize = 1
+        ORDER BY
+        created DESC
+    </select>
+</sqlMap>

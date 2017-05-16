@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <bean id="pathsUtil" class="com.wechat.domain.utils.PathsUtil">
+        <property name="interfaceUrl" value="http://weixin.360info.com.cn/callBack/upstream.action"></property>
+        <property name="visitUrl" value="http://img.weixin.360info.com.cn/"></property>
+        <property name="respondUploadPath" value="/chroot/www/img.weixin.360info.com.cn/respond"></property>
+        <property name="componentPath" value="/chroot/www/img.weixin.360info.com.cn/component"></property>
+        <property name="materialtPath" value="/chroot/www/img.weixin.360info.com.cn/material"></property>
+    </bean>
+</beans>

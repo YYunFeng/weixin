@@ -1,0 +1,112 @@
+.add-tip {
+width: 42px;
+height: 42px;
+margin:60px;
+background: #fff url('../images/appmsg-icon.png') no-repeat 50% 0;
+
+}
+.dib {
+display: inline-block;
+}
+.th {
+line-height: 150px;
+overflow: hidden;
+}
+.vm {
+vertical-align: middle;
+}
+.tc {
+text-align: center;
+}
+Inherited from div#first_col.b-dib.vt.msg-col
+.msg-col {
+font-size: 14px;
+}
+.add-access {
+line-height: 150px;
+}
+.tc {
+text-align: center;
+}
+Inherited from div#first_col.b-dib.vt.msg-col
+.msg-col {
+font-size: 14px;
+}
+.th {
+line-height: 150px;
+overflow: hidden;
+}
+.add-access {
+margin: 0 2px 26px;
+line-height: 150px;
+border: 3px dotted #b8b8b8;
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+background-color: #FFF;
+}
+
+.p_new{
+	margin:10px auto;
+}
+.p_new font{
+	display:block;
+	font-size:16px; font-weight:bold; color:#73ae1f;
+}
+.p_new input,.p_new div,.p_new textarea{
+	width:300px; height:20px; line-height:20px; font-size:14px;
+}
+.p_new textarea{
+	max-width:300px; height:76px;
+}
+.p_new_btn_l{
+	width:140px; height:30px; line-height:30px; background:#fff; float:left; border:#73ae1f solid 1px; 
+	color: #73ae1f; text-align:center;
+}
+.p_new_btn_l:hover, .p_new_btn_r:hover{
+	background:#7fbf23; color:#fff; text-decoration:underline;
+}
+.p_new_btn_r{
+	width:140px; height:30px; line-height:30px; margin-left:20px; background:#fff; float:left; border:#73ae1f solid 1px;
+	color: #73ae1f; text-align:center;
+}
+.p_new_btn_hover{
+	background:#73ae1f; color:#fff;
+}
+.p_new_rect{
+	float:left;
+	width:18px; height:88px; background:#73ae1f; color:#fff; padding:5px; padding-left:7px; font-size:14px;
+}
+.p_new_rect_r{
+	float:left;
+	width:250px; min-height:120px; padding:0px 5px; margin-left:5px;
+}
+.p_new_rect_r input{
+	width:100%; height:20px; line-height:20px; font-size:14px; display:block;
+	margin-bottom:10px;
+
+}
+.p_new_rect_r .p_new_rect_input{
+	width:50%; display:inline;
+}
+.p_new_rect_r textarea{
+	max-width:100%; height:100%;
+}
+.p_new_rect_r .p_new_rect_r_textarea{
+width:100%; height:100px;
+}
+.clear{
+	clear:both;
+}
+.content_change{
+	width:760px;
+	float: right;
+	margin-left: -2px;
+	padding: 20px 100px 20px 100px;
+	border-left: 0px solid #d3d3d3;
+}
+.opr-item-change {
+width: 100%;
+font-size: 14px;
+letter-spacing: normal;
+}
